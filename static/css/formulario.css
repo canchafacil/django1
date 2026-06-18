@@ -1,0 +1,82 @@
+/* Estilos Generales */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    background-color: #006ad3;
+}
+
+/* Navbar */
+.navbar {
+    border-bottom: 4px solid #62ff00;
+}
+
+/* Tarjetas de Canchas */
+.cancha-card {
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+    border: 2px solid transparent !important;
+}
+
+.cancha-card:hover {
+    border-color: #62ff00 !important;
+    background-color: #fff;
+    transform: translateY(-2px);
+}
+
+.cancha-card.selected {
+    border-color: #62ff00 !important;
+    background-color: #e9fff0;
+}
+
+/* Botones de Horarios */
+.btn-hora {
+    min-width: 90px;
+    transition: transform 0.2s;
+}
+
+.btn-hora:hover:not([disabled]) {
+    transform: scale(1.05);
+}
+
+.hora-activa {
+    background-color: #03045e !important;
+    border: 2px solid #62ff00 !important;
+    font-weight: bold;
+}
+
+/* Resumen Lateral (Sticky) */
+.sticky-summary {
+    position: sticky;
+    top: 20px;
+}
+
+/* Ajustes de tipografía y secciones */
+.subtitulo-paso {
+    color: #03045e;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+}
+
+.seccion-contenedor {
+    border-radius: 15px;
+    border: none;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 991px) {
+    .sticky-summary {
+        position: static;
+        margin-top: 2rem;
+    }
+}
+
+/* Efectos visuales en tablas */
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.badge {
+    font-size: 0.85rem;
+}

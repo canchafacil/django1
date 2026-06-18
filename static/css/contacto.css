@@ -1,0 +1,84 @@
+/* Paleta de colores personalizada para Canchafácil */
+:root {
+    --verde-principal: #28a745;
+    --verde-hover: #1e7e34;
+    --oscuro-suave: #212529;
+    --gris-fondo: #f8f9fa;
+    --borde-input: #ced4da;
+}
+
+/* Sección General */
+.contacto-section {
+    background-color: var(--gris-fondo);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hash-title {
+    color: var(--oscuro-suave);
+    position: relative;
+    display: inline-block;
+}
+
+/* Tarjetas Modulares */
+.custom-card {
+    border-radius: 15px !important;
+    background-color: #ffffff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+.card-heading {
+    color: var(--oscuro-suave);
+    border-left: 4px solid var(--verde-principal);
+    padding-left: 10px;
+}
+
+/* Formulario e Inputs */
+.custom-input {
+    border-radius: 8px;
+    border: 1px solid var(--borde-input);
+    padding: 10px 15px;
+    transition: all 0.2s ease-in-out;
+}
+
+.custom-input:focus {
+    border-color: var(--verde-principal);
+    box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25);
+}
+
+/* Botón Personalizado Canchafácil */
+.btn-primary-cancha {
+    background-color: var(--verde-principal);
+    border: none;
+    color: white;
+    border-radius: 8px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.btn-primary-cancha:hover {
+    background-color: var(--verde-hover);
+    color: white;
+}
+
+/* Contenedor del Mapa */
+.map-container {
+    border-radius: 12px;
+    overflow: hidden;
+    min-height: 320px;
+    border: 1px solid #e3e6f0;
+}
+
+/* Iconos de Información */
+.icon-cancha {
+    color: var(--verde-principal);
+    font-size: 1.1rem;
+}
+
+.contacto-info p {
+    font-size: 0.95rem;
+    color: #5a5c69;
+}

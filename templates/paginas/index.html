@@ -1,0 +1,243 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CanchasFácil - Reserva tu cancha</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{% static 'img/logo-green.png' %}">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS propio -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark shadow" style="background-color: #03045e;">
+        <div class="container">
+            <img src="{% static 'img/logo-green.png' %}" style="height: 90px;" alt="">
+            <a class="navbar-brand fw-bold ms-2" href="#" style="font-size: 2rem; color: white;">
+                Cancha<span style="color:  #62ff00;">Facil </span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'inicio' %}">Inicio</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'reservas' %}">Reservas</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'nosotros' %}">Sobre Nosotros</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'contacto' %}">Contacto</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{% url 'login' %}" class="btn btn-info border-0 ms-2" style="background-color: #62ff00;">Iniciar Sesión</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Reserva tu cancha</h1>
+            <p class="lead mt-3">
+                Vive la pasión del fútbol en las mejores canchas sintéticas
+            </p>
+
+            <a href="{% url 'reservas' %}" class="btn btn-success btn-lg mt-3" style="background-color: #03045e;">
+                Reservar Ahora
+            </a>
+        </div>
+    </section>
+
+    <div class="container">
+        <section class=" seccion-porque">
+
+                <h1 class="titulo-sec">¿POR QUÉ ELEGIRNOS?</h1>
+                <p class="subtitulo-seccion">La mejor experiencia de fútbol en un solo lugar</p>
+
+                <div class="row g-4 justify-content-center px-3 mt-2">
+
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <div class="porque-card">
+                            <span class="porque-icono"><i class="bi bi-rocket-takeoff"></i></span>
+                            <div class="porque-titulo">Reserva rápida</div>
+                            <p class="porque-texto">Encuentra la cancha ideal y agenda tu horario fácilmente.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <div class="porque-card">
+                            <span class="porque-icono"><i class="bi bi-hourglass-split"></i></span>
+                            <div class="porque-titulo"> Disponibilidad</div>
+                            <p class="porque-texto">Consulta en tiempo real las canchas libres y evita esperas.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <div class="porque-card">
+                            <span class="porque-icono"><i class="bi bi-lock"></i></span>
+                            <div class="porque-titulo">Pagos seguros</div>
+                            <p class="porque-texto">Realiza tu reserva con métodos de pago rápidos y confiables.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <div class="porque-card">
+                            <span class="porque-icono"><i class="bi bi-patch-check"></i></span>
+                            <div class="porque-titulo">Experiencia fácil</div>
+                            <p class="porque-texto">Gestiona reservas, horarios y partidos desde una sola plataforma.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+        </section>
+    </div>
+
+    <div class="container">
+        <section class="carousel-wrapper">
+            <div id="canchaCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#canchaCarousel" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#canchaCarousel" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#canchaCarousel" data-bs-slide-to="2"></button>
+                    <button type="button" data-bs-target="#canchaCarousel" data-bs-slide-to="3"></button>
+                </div>
+
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://www.valoraanalitik.com/wp-content/uploads/2025/10/futbol-5-bogota-precios-canchas-alquiler.jpg "
+                            alt="Cancha 1">
+                        <div class="carousel-caption">
+                            <span class="badge-field">Cancha Estrella</span>
+                            <h3>Arena Norte Premium <span class="badge"
+                                    style="background-color: #03045e;">$85.000</span></h3>
+                            <p>Cancha sintética de última generación con iluminación LED y camerinos equipados.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://img.magnific.com/foto-gratis/concepto-hacer-deporte_23-2151937746.jpg?semt=ais_hybrid&w=740&q=80"
+                            alt="Cancha 2">
+                        <div class="carousel-caption">
+                            <span class="badge-field">Más Popular</span>
+                            <h3>Estadio Verde City <span class="badge"
+                                    style="background-color: #03045e;">$85.000</span></h3>
+                            <p>El complejo deportivo favorito de la ciudad. Capacidad para torneos y eventos.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZnV0Ym9sfGVufDB8fDB8fHww"
+                            alt="Cancha 3">
+                        <div class="carousel-caption">
+                            <span class="badge-field">Nuevo</span>
+                            <h3>SportPlex Zona Sur <span class="badge"
+                                    style="background-color: #03045e;">$85.000</span></h3>
+                            <p>Inaugurado recientemente con tecnología de grass artificial de alto rendimiento.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://ichef.bbci.co.uk/ace/ws/640/cpsprodpb/B5B9/production/_92212564_gettyimages-185933155.jpg.webp"
+                            alt="Cancha 4">
+                        <div class="carousel-caption">
+                            <span class="badge-field">VIP</span>
+                            <h3>Elite Fields Exclusivo <span class="badge"
+                                    style="background-color: #03045e;">$85.000</span></h3>
+                            <p>Experiencia premium: vestuarios privados, tribuna y servicio de refrigerios.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#canchaCarousel"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#canchaCarousel"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <div class="rf-header text-center">
+        <h2 class="rf-titulo">LO QUE DICE NUESTRA COMUNIDAD</h2>
+        <p class="rf-sub">Jugadores reales, experiencias reales en Cancha Fácil</p>
+        <div class="rf-stats">
+            <div>
+                <span class="rf-stat-num" id="stat-total">5</span>
+                <span class="rf-stat-lbl">Reseñas</span>
+            </div>
+            <div>
+                <span class="rf-stat-num" id="stat-prom">4.8</span>
+                <span class="rf-stat-lbl">Promedio</span>
+            </div>
+            <div>
+                <span class="rf-stat-num">98%</span>
+                <span class="rf-stat-lbl">Recomiendan</span>
+            </div>
+        </div>
+        
+        <div class="mt-4">
+            <a href="{% url 'nosotros' %}" class="btn btn-ver-reseñas">Ver reseñas</a>
+        </div>
+    </div>
+    <footer class="bg-dark text-light">
+        <div class="container">
+            <div class="p-4">
+                <div class="row align-items-center pt-2">
+                    <div class="col-12 col-md-6 text-center text-md-start mb-2 mb-md-0">
+                        <p>Teléfono: <span style="color: #62ff00;">+57 300 000 0000</span></p>
+                    </div>
+                    <div class="col-12 col-md-6 text-end text-md-center">
+                        <span class="justify-content-end d-flex">
+                            <p>Correo electrónico: <span style="color: #62ff00;"> canchafacil@gmail.com</span></p>
+                        </span>
+                    </div>
+                </div>
+                <div class="row align-items-center pt-2" style="border-top: 1px solid #eee;">
+                    <div class="col-12 col-md-6 text-center text-md-start mb-2 mb-md-0">
+                        <p class="mb-0">Copyright © 2026 CanchaFacil todos los derechos reservados</p>
+                    </div>
+                    <div class="col-12 col-md-6 text-end text-md-center">
+                        <span class="justify-content-end d-flex"> Síguenos en:ㅤㅤ
+                            <a href="" style="color: #62ff00;"><i class="bi bi-youtube me-2"></i></a>
+                            <a href="" style="color: #62ff00;"><i class="bi bi-facebook me-2"></i></a>
+                            <a href="" style="color: #62ff00;"><i class="bi bi-instagram me-2"></i></a>
+                            <a href="" style="color: #62ff00;"><i class="bi bi-tiktok me-2"></i></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
