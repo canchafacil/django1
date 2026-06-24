@@ -1,3 +1,5 @@
+# en la app de reseñas, archivo admin.py
 from django.contrib import admin
+from .models import Resena
 
-# Register your models here.
+admin.site.register(Resena)
