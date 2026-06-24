@@ -97,7 +97,7 @@ def login_admin(request):
             )
 
             if usuario.rol == 'ADMIN':
-                return redirect('admin_panel')
+                return redirect('panel_principal')
 
             return redirect('inicio')
 
