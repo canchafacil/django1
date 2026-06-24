@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'pagos',
     'administracion',
     'contacto',
-    'panel_admin',
 ]
 
 MIDDLEWARE = [

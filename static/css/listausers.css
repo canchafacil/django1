@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&family=Roboto+Condensed:wght@400;700&display=swap');
+
+/* ===== VARIABLES CORPORATIVAS (CYBERPUNK) ===== */
+:root {
+    --primary-color: #62FF00;   /* Verde Principal */
+    --bg-black: #000000;        /* Negro Absoluto Fondo principal */
+    --bg-dark-card: #121212;    /* Variación gris oscuro para contenedores */
+    --text-white: #FFFFFF;      /* Blanco apoyo */
+    --hover-gray: #525151;      /* Color Hover / Fondo Alterno */
+    --danger-red: #ef4444;      /* Rojo Errores/Eliminaciones */
+}
+
+/* ===== CONFIGURACIÓN GENERAL ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body.adm-body {
+    background-color: var(--bg-black);
+    /* Imagen de fondo unificada con filtro oscuro corporativo */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(../img/fondo-admi.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: var(--text-white);
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ===== COMPONENTES DE NAVEGACIÓN GENERAL ===== */
+.cancha-nav {
+    background-color: var(--bg-black) !important;
+    border-bottom: 2px solid #1c2222 !important;
+    padding: 0.5rem 1rem !important;
+}
+
+.logo-text {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 2rem;
+    color: var(--text-white) !important;
+    letter-spacing: -0.5px;
+    text-decoration: none;
+}
+
+/* ===== COMPONENTES DE NAVEGACIÓN LATERAL (SIDEBAR) ===== */
+.sidebar {
+    height: 100vh;
+    background-color: var(--bg-dark-card);
+    color: var(--text-white);
+    padding: 20px;
+    border-right: 2px solid #1c2222;
+    position: sticky;
+    top: 0;
+}
+
+.sidebar a {
+    color: var(--text-white);
+    display: block;
+    margin: 15px 0;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+}
+
+.sidebar a:hover {
+    background-color: var(--text-white);
+    color: var(--primary-color);
+    padding-left: 20px; /* Efecto sutil de desplazamiento lateral */
+}
+
+.sidebar a.active {
+    background-color: var(--primary-color) !important;
+    color: var(--text-white) !important;
+    font-weight: 700;
+    box-shadow: 0 0 15px rgba(98, 255, 0, 0.4);
+}
+
+/* ===== BOTONES GENERALES ===== */
+.btn-custom {
+
+    color: var(--text-white);
+    border: 2px solid transparent;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    padding: 8px 24px;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-custom:hover {
+    background-color: var(--primary-color);
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-custom.active {
+    background-color: var(--primary-color) !important;
+    color: var(--text-white) !important;
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 15px rgba(98, 255, 0, 0.4);
+}
+
+.btn-editar:hover {
+    background-color: white;
+}
+
+.btn-salir {
+    background-color: #2a1414;
+    color: var(--danger-red) !important;
+    border: 2px solid var(--danger-red);
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-salir:hover {
+    background-color: var(--danger-red);
+    color: var(--text-white) !important;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+    transform: translateY(-2px);
+}

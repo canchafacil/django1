@@ -18,9 +18,9 @@ def registro_admin(request):
         confirm_password = request.POST.get('confirm_password')
 
         if password != confirm_password:
-            return render(request, 'auth_admin/registro_admin.html', {'error': 'Las contraseñas no coinciden'})
+            return render(request, 'usuarios/registro_admin.html', {'error': 'Las contraseñas no coinciden'})
         if Usuario.objects.filter(email=email).exists():
-            return render(request, 'auth_admin/registro_admin.html', {'error': 'Este correo ya está registrado'})
+            return render(request, 'usuarios/registro_admin.html', {'error': 'Este correo ya está registrado'})
 
         Usuario.objects.create(
             first_name=first_name, last_name=last_name, email=email,
@@ -28,7 +28,7 @@ def registro_admin(request):
         )
         return redirect('login_admin')
 
-    return render(request, 'auth_admin/registro_admin.html')
+    return render(request, 'usuarios/registro_admin.html')
 
 
 def login_admin(request):
@@ -41,8 +41,8 @@ def login_admin(request):
                 return redirect('panel_principal')
             return redirect('inicio')
         except Usuario.DoesNotExist:
-            return render(request, 'auth_admin/login_admin.html', {'error': 'Correo o contraseña incorrectos'})
-    return render(request, 'auth_admin/login_admin.html')
+            return render(request, 'usuarios/login_admin.html', {'error': 'Correo o contraseña incorrectos'})
+    return render(request, 'usuarios/login_admin.html')
 
 
 def panel_principal(request):
@@ -79,7 +79,7 @@ def eliminar_reserva_admin(request, id):
 
 
 def lista_usuarios(request):
-    return render(request, 'auth_admin/lista_usuarios.html', {
+    return render(request, 'usuarios/lista_usuarios.html', {
         'usuarios': Usuario.objects.all()
     })
 
@@ -98,7 +98,7 @@ def editar_usuario(request, id):
         usuario.password = request.POST.get('password')
         usuario.save()
         return redirect('lista_usuarios')
-    return render(request, 'auth_admin/editar_usuarios.html', {'usuario': usuario})
+    return render(request, 'usuarios/editar_usuarios.html', {'usuario': usuario})
 @require_POST
 def editar_reserva_admin(request, id):
     try:
