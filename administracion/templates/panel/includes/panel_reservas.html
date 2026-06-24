@@ -1,20 +1,24 @@
+<!-- ===== PANEL RESERVAS ===== -->
 <div class="tab-pane fade" id="sec-panel-reservas" role="tabpanel">
     <div class="container p-0">
         <h3 class="mb-4 text-white fw-bold">Panel de Reservas</h3>
         <div class="row g-4 mb-4">
             <div class="col-md-4">
                 <div class="card p-3 shadow text-dark bg-light rounded-4">
-                    <h6>Total reservas</h6><h3 id="stat-total-res" class="fw-bold m-0">0</h3>
+                    <h6>Total reservas</h6>
+                    <h3 id="stat-total-res" class="fw-bold m-0">{{ total_reservas }}</h3>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card p-3 shadow text-dark bg-light rounded-4">
-                    <h6>Confirmadas</h6><h3 id="stat-conf-res" class="fw-bold text-success m-0">0</h3>
+                    <h6>Confirmadas</h6>
+                    <h3 id="stat-conf-res" class="fw-bold text-success m-0">{{ confirmadas }}</h3>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card p-3 shadow text-dark bg-light rounded-4">
-                    <h6>Pendientes</h6><h3 id="stat-pend-res" class="fw-bold text-warning m-0">0</h3>
+                    <h6>Pendientes</h6>
+                    <h3 id="stat-pend-res" class="fw-bold text-warning m-0">{{ pendientes }}</h3>
                 </div>
             </div>
         </div>
@@ -23,10 +27,91 @@
             <div class="table-responsive">
                 <table class="table table-striped align-middle m-0">
                     <thead class="table-dark">
-                        <tr><th>NOMBRE</th><th>CANCHA</th><th>FECHA</th><th>HORA</th><th>ESTADO</th><th>ACCIONES</th></tr>
+                        <tr><th>NOMBRE</th><th>CANCHA</th><th>FECHA</th><th>HORA</th><th>DURACIÓN</th><th>ESTADO</th><th>ACCIONES</th></tr>
                     </thead>
-                    <tbody id="tablaReservas"></tbody>
+                    <tbody id="tablaReservas">
+                        {% for r in reservas %}
+                        <tr id="fila-res-{{ r.id }}">
+                            <td class="fw-bold">{{ r.nombre }}</td>
+                            <td>{{ r.cancha }}</td>
+                            <td>{{ r.fecha }}</td>
+                            <td>{{ r.hora }}</td>
+                            <td>{{ r.duracion }}</td>
+                            <td>
+                                <span class="badge {% if r.estado == 'Confirmada' %}bg-success{% else %}bg-warning text-dark{% endif %}">
+                                    {{ r.estado }}
+                                </span>
+                            </td>
+                            <td>
+                                <button class="btn btn-warning btn-sm me-1"
+                                    onclick="abrirEditarReserva({{ r.id }},'{{ r.nombre }}','{{ r.correo }}','{{ r.telefono }}','{{ r.fecha|date:"Y-m-d" }}','{{ r.hora }}','{{ r.cancha }}','{{ r.duracion }}','{{ r.estado }}')"
+                                    title="Editar">✏</button>
+                                {% if r.estado == 'Pendiente' %}
+                                <button class="btn btn-success btn-sm me-1"
+                                    onclick="pedirAprobarReserva({{ r.id }})" title="Confirmar">✔</button>
+                                {% endif %}
+                                <button class="btn btn-danger btn-sm"
+                                    onclick="pedirEliminarReserva({{ r.id }})" title="Eliminar">🗑</button>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr id="fila-vacia">
+                            <td colspan="7" class="text-center text-muted py-4">No hay reservas registradas.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal editar reserva -->
+    <div id="modal-reserva-editar-overlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:2000;justify-content:center;align-items:center;">
+        <div class="p-4 rounded-4" style="background:#191919;max-width:500px;width:90%;border:1px solid #2a2a2a;">
+            <h3 class="mb-3 fw-bold text-white" style="font-family:'Bebas Neue',sans-serif;font-size:2rem;">EDITAR RESERVA</h3>
+            <div class="row g-2">
+                <div class="col-12">
+                    <label class="text-white-50 small">Nombre</label>
+                    <input type="text" id="edit-res-nombre" class="form-control" style="background:#111;color:#fff;border:1px solid #333;">
+                </div>
+                <div class="col-md-6">
+                    <label class="text-white-50 small">Correo</label>
+                    <input type="email" id="edit-res-correo" class="form-control" style="background:#111;color:#fff;border:1px solid #333;">
+                </div>
+                <div class="col-md-6">
+                    <label class="text-white-50 small">Teléfono</label>
+                    <input type="text" id="edit-res-telefono" class="form-control" style="background:#111;color:#fff;border:1px solid #333;">
+                </div>
+                <div class="col-md-6">
+                    <label class="text-white-50 small">Fecha</label>
+                    <input type="date" id="edit-res-fecha" class="form-control" style="background:#111;color:#fff;border:1px solid #333;">
+                </div>
+                <div class="col-md-6">
+                    <label class="text-white-50 small">Hora</label>
+                    <input type="time" id="edit-res-hora" class="form-control" style="background:#111;color:#fff;border:1px solid #333;">
+                </div>
+                <div class="col-md-6">
+                    <label class="text-white-50 small">Cancha</label>
+                    <input type="text" id="edit-res-cancha" class="form-control" style="background:#111;color:#fff;border:1px solid #333;">
+                </div>
+                <div class="col-md-6">
+                    <label class="text-white-50 small">Duración</label>
+                    <select id="edit-res-duracion" class="form-select" style="background:#111;color:#fff;border:1px solid #333;">
+                        <option value="1 Hora">1 Hora</option>
+                        <option value="2 Horas">2 Horas</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label class="text-white-50 small">Estado</label>
+                    <select id="edit-res-estado" class="form-select" style="background:#111;color:#fff;border:1px solid #333;">
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Confirmada">Confirmada</option>
+                    </select>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end gap-2 mt-3">
+                <button class="px-4 py-2 rounded-pill border-0 fw-bold" onclick="cerrarModalEditarReserva()" style="background:#2b2b2b;color:#fff;min-width:110px;">Cancelar</button>
+                <button class="px-4 py-2 rounded-pill border-0 fw-bold text-dark" id="btn-confirmar-editar-reserva" style="background:#62ff00;min-width:110px;">Guardar</button>
             </div>
         </div>
     </div>
@@ -55,3 +140,123 @@
         </div>
     </div>
 </div>
+
+<script>
+const CSRF_PANEL = '{{ csrf_token }}';
+let reservaSeleccionadaId = null;
+
+function fetchPostPanel(url, body) {
+    return fetch(url, {
+        method: 'POST',
+        headers: { 'X-CSRFToken': CSRF_PANEL, 'Content-Type': 'application/json' },
+        body: body ? JSON.stringify(body) : null
+    });
+}
+
+/* ── EDITAR ── */
+function abrirEditarReserva(id, nombre, correo, telefono, fecha, hora, cancha, duracion, estado) {
+    reservaSeleccionadaId = id;
+    document.getElementById('edit-res-nombre').value   = nombre;
+    document.getElementById('edit-res-correo').value   = correo;
+    document.getElementById('edit-res-telefono').value = telefono;
+    document.getElementById('edit-res-fecha').value    = fecha;
+    document.getElementById('edit-res-hora').value     = hora;
+    document.getElementById('edit-res-cancha').value   = cancha;
+    document.getElementById('edit-res-duracion').value = duracion;
+    document.getElementById('edit-res-estado').value   = estado;
+    document.getElementById('modal-reserva-editar-overlay').style.display = 'flex';
+}
+function cerrarModalEditarReserva() {
+    document.getElementById('modal-reserva-editar-overlay').style.display = 'none';
+    reservaSeleccionadaId = null;
+}
+document.getElementById('btn-confirmar-editar-reserva').onclick = function () {
+    const id = reservaSeleccionadaId;
+    const datos = {
+        nombre:   document.getElementById('edit-res-nombre').value.trim(),
+        correo:   document.getElementById('edit-res-correo').value.trim(),
+        telefono: document.getElementById('edit-res-telefono').value.trim(),
+        fecha:    document.getElementById('edit-res-fecha').value,
+        hora:     document.getElementById('edit-res-hora').value,
+        cancha:   document.getElementById('edit-res-cancha').value.trim(),
+        duracion: document.getElementById('edit-res-duracion').value,
+        estado:   document.getElementById('edit-res-estado').value,
+    };
+    cerrarModalEditarReserva();
+    fetchPostPanel(`/panel_admin/panel/reservas/${id}/editar/`, datos).then(r => {
+        if (!r.ok) return;
+        const fila = document.getElementById('fila-res-' + id);
+        if (fila) {
+            fila.cells[0].textContent = datos.nombre;
+            fila.cells[1].textContent = datos.cancha;
+            fila.cells[2].textContent = datos.fecha;
+            fila.cells[3].textContent = datos.hora;
+            fila.cells[4].textContent = datos.duracion;
+            const badge = fila.querySelector('.badge');
+            badge.textContent = datos.estado;
+            badge.className = 'badge ' + (datos.estado === 'Confirmada' ? 'bg-success' : 'bg-warning text-dark');
+        }
+    });
+};
+
+/* ── ELIMINAR ── */
+function pedirEliminarReserva(id) {
+    reservaSeleccionadaId = id;
+    document.getElementById('modal-reserva-eliminar-overlay').style.display = 'flex';
+}
+function cerrarModalEliminarReserva() {
+    document.getElementById('modal-reserva-eliminar-overlay').style.display = 'none';
+    reservaSeleccionadaId = null;
+}
+document.getElementById('btn-confirmar-eliminar-reserva').onclick = function () {
+    const id = reservaSeleccionadaId;
+    cerrarModalEliminarReserva();
+    fetchPostPanel(`/panel_admin/panel/reservas/${id}/eliminar/`).then(r => {
+        if (!r.ok) return;
+        const fila = document.getElementById('fila-res-' + id);
+        if (fila) {
+            const badge = fila.querySelector('.badge');
+            const eraConfirmada = badge && badge.classList.contains('bg-success');
+            fila.remove();
+            document.getElementById('stat-total-res').textContent =
+                Math.max(0, parseInt(document.getElementById('stat-total-res').textContent) - 1);
+            if (eraConfirmada) {
+                document.getElementById('stat-conf-res').textContent =
+                    Math.max(0, parseInt(document.getElementById('stat-conf-res').textContent) - 1);
+            } else {
+                document.getElementById('stat-pend-res').textContent =
+                    Math.max(0, parseInt(document.getElementById('stat-pend-res').textContent) - 1);
+            }
+        }
+    });
+};
+
+/* ── APROBAR ── */
+function pedirAprobarReserva(id) {
+    reservaSeleccionadaId = id;
+    document.getElementById('modal-reserva-aprobar-overlay').style.display = 'flex';
+}
+function cerrarModalAprobarReserva() {
+    document.getElementById('modal-reserva-aprobar-overlay').style.display = 'none';
+    reservaSeleccionadaId = null;
+}
+document.getElementById('btn-confirmar-aprobar-reserva').onclick = function () {
+    const id = reservaSeleccionadaId;
+    cerrarModalAprobarReserva();
+    fetchPostPanel(`/panel_admin/panel/reservas/${id}/aprobar/`).then(r => {
+        if (!r.ok) return;
+        const fila = document.getElementById('fila-res-' + id);
+        if (fila) {
+            const badge = fila.querySelector('.badge');
+            badge.className = 'badge bg-success';
+            badge.textContent = 'Confirmada';
+            const btnAprobar = fila.querySelector('.btn-success');
+            if (btnAprobar) btnAprobar.remove();
+            document.getElementById('stat-conf-res').textContent =
+                parseInt(document.getElementById('stat-conf-res').textContent) + 1;
+            document.getElementById('stat-pend-res').textContent =
+                Math.max(0, parseInt(document.getElementById('stat-pend-res').textContent) - 1);
+        }
+    });
+};
+</script>

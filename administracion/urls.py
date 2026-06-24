@@ -13,4 +13,7 @@ urlpatterns = [
     path('panel/ingresos/',     views.panel_principal, name='ingresos'),
     path('panel/resenas/',      views.panel_principal, name='resenas'),
     path('panel/canchas/',      views.panel_principal, name='canchas'),
+    path('panel/reservas/<int:id>/aprobar/',  views.aprobar_reserva,       name='aprobar_reserva_admin'),
+    path('panel/reservas/<int:id>/eliminar/', views.eliminar_reserva_admin, name='eliminar_reserva_admin'),
+    path('panel/reservas/<int:id>/editar/', views.editar_reserva_admin, name='editar_reserva_admin'),
 ]

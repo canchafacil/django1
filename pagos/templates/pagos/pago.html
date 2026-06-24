@@ -220,24 +220,33 @@
         }
 
         // Simulación Dinámica: Pendiente -> Confirmado
-        function procesarSimulacionPago(event) {
-            event.preventDefault();
+        // Reemplaza la función procesarSimulacionPago en pago.html por esta:
 
-            const seccionFormularios = document.getElementById('seccion-formularios');
-            const pantallaEstado = document.getElementById('pantalla-estado-pago');
-            const estadoPendiente = document.getElementById('estado-pendiente');
-            const estadoConfirmado = document.getElementById('estado-confirmado');
+function procesarSimulacionPago(event) {
+    event.preventDefault();
 
-            seccionFormularios.classList.add('d-none');
-            pantallaEstado.classList.remove('d-none');
-            estadoPendiente.classList.remove('d-none');
-            estadoConfirmado.classList.add('d-none');
+    const seccionFormularios = document.getElementById('seccion-formularios');
+    const pantallaEstado     = document.getElementById('pantalla-estado-pago');
+    const estadoPendiente    = document.getElementById('estado-pendiente');
+    const estadoConfirmado   = document.getElementById('estado-confirmado');
 
-            setTimeout(() => {
-                estadoPendiente.classList.add('d-none');
-                estadoConfirmado.classList.remove('d-none');
-            }, 3000);
-        }
+    // Mostrar pantalla de estado
+    seccionFormularios.classList.add('d-none');
+    pantallaEstado.classList.remove('d-none');
+    estadoPendiente.classList.remove('d-none');
+    estadoConfirmado.classList.add('d-none');
+
+    // Después de 3s mostrar confirmado, después de 5s redirigir a reservas
+    setTimeout(() => {
+        estadoPendiente.classList.add('d-none');
+        estadoConfirmado.classList.remove('d-none');
+
+        setTimeout(() => {
+            window.location.href = "{% url 'reservas' %}";
+        }, 2000);
+
+    }, 3000);
+}
     </script>
     <footer class="bg-dark text-light">
         <div class="container">

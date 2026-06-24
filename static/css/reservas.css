@@ -1,9 +1,7 @@
-.hero {
-    background: #d9d9d9;
-    min-height: 90vh;
-    display: flex;
-    align-items: center;
-}
+ body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--gris-fondo);
+        }
 
 .title {
     font-size: 4rem;

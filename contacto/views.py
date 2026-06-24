@@ -1,35 +1,30 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import Resena
 
 
 def nosotros(request):
-    """Página pública con formulario de reseña."""
     if request.method == 'POST':
         nombre    = request.POST.get('nombre', '').strip()
         jugador   = request.POST.get('jugador', '').strip()
         cancha    = request.POST.get('cancha', '').strip()
         estrellas = int(request.POST.get('estrellas', 0))
         texto     = request.POST.get('texto', '').strip()
-
         if nombre and texto:
-            Resena.objects.create(
-                nombre=nombre,
-                jugador=jugador,
-                cancha=cancha,
-                estrellas=estrellas,
-                texto=texto,
-            )
+            Resena.objects.create(nombre=nombre, jugador=jugador, cancha=cancha, estrellas=estrellas, texto=texto)
         return redirect('nosotros')
 
     resenas = Resena.objects.filter(archivada=False).order_by('-fecha')
-    return render(request, 'contacto/nosotros.html', {'resenas': resenas})
+    total = resenas.count()
+    promedio = round(sum(r.estrellas for r in resenas) / total, 1) if total else '—'
+    return render(request, 'contacto/nosotros.html', {'resenas': resenas, 'promedio': promedio})
 
 
-# ── Acciones del panel admin ──
+def contacto(request):  # ✅ vista propia para contacto
+    return render(request, 'contacto/contacto.html')
+
 
 @require_POST
 def resena_archivar(request, id):

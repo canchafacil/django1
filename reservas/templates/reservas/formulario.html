@@ -1,7 +1,7 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,26 +11,23 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{% static 'css/formulario.css' %}">
 </head>
-
 <body class="bg-light">
-
-    {% csrf_token %}
 
     <nav class="navbar navbar-expand-lg navbar-dark shadow" style="background-color: #03045e;">
         <div class="container">
             <img src="{% static 'img/logo-green.png' %}" style="height: 90px;" alt="Logo de CanchaFácil">
-            <a class="navbar-brand fw-bold ms-2" href="#" style="font-size: 2rem; color: white;">
-                Cancha<span style="color: #62ff00;">Fácil </span>
+            <a class="navbar-brand fw-bold ms-2" href="{% url 'inicio' %}" style="font-size: 2rem; color: white;">
+                Cancha<span style="color: #62ff00;">Fácil</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="menu">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="{% url 'inicio' %}">Inicio</a></li>
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link active" href="{% url 'reservas' %}">Reservas</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="{% url 'nosotros' %}">Sobre Nosotros</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="{% url 'contacto' %}">Contacto</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'nosotros' %}">Sobre Nosotros</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'contacto' %}">Contacto</a></li>
                 </ul>
             </div>
         </div>
@@ -38,75 +35,50 @@
 
     <div class="container mt-4">
 
-        <div class="row g-4">
-
-            <div class="col-lg-8">
-
-                <div class="card p-4 shadow-sm seccion-contenedor bg-white mb-4">
-                    <h5 class="text-uppercase subtitulo-paso">
-                        <i class="bi bi-dribbble me-2"></i>1. Selecciona la Cancha
-                    </h5>
-                    <div class="row g-3" id="contenedorListaCanchas"></div>
+        <!-- PASO A PASO -->
+        <section class="seccion-pasos">
+            <h1 class="titulo-seccion">¿CÓMO RESERVAR?</h1>
+            <p class="subtitulo-seccion">Solo 3 pasos y estás listo para jugar</p>
+            <div class="row justify-content-center mt-4 px-3">
+                <div class="col-12 col-md-4 paso-item">
+                    <div class="paso-numero">1</div>
+                    <div class="paso-titulo">Elige tu Cancha</div>
+                    <p class="paso-texto">Explora el catálogo y selecciona la cancha que más te guste según el tipo de juego.</p>
+                    <div class="paso-linea d-none d-md-block"></div>
                 </div>
-
-                <div class="card p-4 shadow-sm seccion-contenedor bg-white mb-4">
-                    <h5 class="text-uppercase subtitulo-paso">
-                        <i class="bi bi-calendar3 me-2"></i>2. Agenda tu Encuentro
-                    </h5>
-                    <div class="row g-4">
-                        <div class="col-md-4 border-end">
-                            <label for="fechaSeleccionada" class="form-label fw-bold text-secondary small">Fecha del partido</label>
-                            <input type="date" id="fechaSeleccionada" class="form-control form-control-lg shadow-sm mb-2">
-                            <span class="text-muted small d-block">La disponibilidad se calcula al instante para el día seleccionado.</span>
-                        </div>
-                        <div class="col-md-8">
-                            <h6 class="fw-bold text-dark mb-3 small text-uppercase text-secondary" id="tituloHorarios">Horarios disponibles:</h6>
-                            <div class="d-flex flex-wrap gap-2 p-2 rounded bg-light border" id="contenedorHorarios"></div>
-                        </div>
-                    </div>
+                <div class="col-12 col-md-4 paso-item">
+                    <div class="paso-numero">2</div>
+                    <div class="paso-titulo">Selecciona el Horario</div>
+                    <p class="paso-texto">Consulta la disponibilidad en tiempo real y elige el día y la hora que más te convenga.</p>
+                    <div class="paso-linea d-none d-md-block"></div>
                 </div>
-
-                <div class="card p-4 shadow-sm seccion-contenedor bg-white mb-4">
-                    <h5 class="text-uppercase subtitulo-paso">
-                        <i class="bi bi-person-fill me-2"></i>3. Datos del Jugador
-                    </h5>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label for="nombre" class="form-label fw-semibold text-secondary small">Nombre completo</label>
-                            <input type="text" id="nombre" class="form-control" placeholder="Ej. Juan Pérez">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="telefono" class="form-label fw-semibold text-secondary small">Teléfono celular</label>
-                            <input type="tel" id="telefono" class="form-control" placeholder="3001234567">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="correo" class="form-label fw-semibold text-secondary small">Correo electrónico</label>
-                            <input type="email" id="correo" class="form-control" placeholder="juan@correo.com">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="duracion" class="form-label fw-semibold text-secondary small">Tiempo de alquiler</label>
-                            <select id="duracion" class="form-select">
-                                <option value="1 Hora">1 Hora</option>
-                                <option value="2 Horas">2 Horas</option>
-                            </select>
-                        </div>
-                    </div>
+                <div class="col-12 col-md-4 paso-item">
+                    <div class="paso-numero">3</div>
+                    <div class="paso-titulo">Confirma y Juega</div>
+                    <p class="paso-texto">Completa tu reserva, recibe la confirmación y llega a disfrutar. ¡Así de fácil!</p>
                 </div>
             </div>
+            <div class="text-center mt-4">
+                <a href="#seccionReserva"><button type="button" class="btn2">Reservar Ahora</button></a>
+            </div>
+        </section>
 
-            <div class="col-lg-4">
+        <div class="row g-4" id="seccionReserva">
+
+            <!-- RESUMEN (en mobile va arriba y queda fijo al hacer scroll; en desktop va al lado) -->
+            <div class="col-12 col-lg-4 order-1 order-lg-2">
                 <div class="card shadow border-0 text-white sticky-summary" style="background-color: #03045e;">
-                    <div class="card-body p-4">
-                        <h5 class="fw-bold mb-3 border-bottom pb-2 text-uppercase text-center tracking-wide" style="color: #62ff00;">
+                    <div class="card-body p-3 p-md-4">
+                        <h5 class="fw-bold mb-3 border-bottom pb-2 text-uppercase text-center" style="color:#62ff00;font-size:1rem;">
                             Resumen de tu Turno
                         </h5>
-                        <div class="bg-black bg-opacity-25 rounded p-3 text-center mb-4 border border-secondary border-opacity-20">
-                            <i class="bi bi-calendar-check text-white d-block mb-1" style="font-size: 2.5rem;"></i>
-                            <small class="text-white-50 tracking-wider text-uppercase">CanchaFácil Booking System</small>
+                        <div class="bg-black bg-opacity-25 rounded p-3 text-center mb-4 border border-secondary border-opacity-20 d-none d-md-block">
+                            <i class="bi bi-calendar-check text-white d-block mb-1" style="font-size:2.5rem;"></i>
+                            <small class="text-white-50 text-uppercase">CanchaFácil Booking</small>
                         </div>
                         <div class="mb-2 d-flex justify-content-between">
                             <span class="text-white-50 small">Cancha:</span>
-                            <span id="resumenCancha" class="fw-bold text-end text-truncate ms-2" style="max-width: 180px;">No seleccionada</span>
+                            <span id="resumenCancha" class="fw-bold text-end ms-2">No seleccionada</span>
                         </div>
                         <div class="mb-2 d-flex justify-content-between">
                             <span class="text-white-50 small">Fecha:</span>
@@ -116,9 +88,13 @@
                             <span class="text-white-50 small">Hora:</span>
                             <span id="resumenHora" class="fw-bold text-warning">Por elegir</span>
                         </div>
-                        <div class="mb-4 d-flex justify-content-between">
+                        <div class="mb-2 d-flex justify-content-between">
                             <span class="text-white-50 small">Duración:</span>
                             <span id="resumenDuracion" class="fw-bold">1 Hora</span>
+                        </div>
+                        <div class="mb-4 d-flex justify-content-between">
+                            <span class="text-white-50 small">Nombre:</span>
+                            <span id="resumenNombre" class="fw-bold">—</span>
                         </div>
                         <hr class="bg-white my-3">
                         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -127,32 +103,101 @@
                         </div>
                         <button type="button" id="btnConfirmarReserva"
                             class="btn btn-lg w-100 py-3 fw-bold text-uppercase shadow-sm"
-                            style="background-color: #62ff00; color: #03045e; border-radius: 8px;">
-                            Confirmar Reserva
+                            style="background-color:#62ff00;color:#03045e;border-radius:8px;"
+                            onclick="confirmarReserva()">
+                            <i class="bi bi-credit-card me-2"></i>Confirmar e Ir a Pagar
                         </button>
+                        <div class="text-center mt-2">
+                            <small class="text-white-50" style="font-size:0.72rem;">
+                                <i class="bi bi-shield-lock me-1"></i>Serás redirigido a nuestro módulo de pago seguro.
+                            </small>
+                        </div>
                     </div>
                 </div>
             </div>
 
+            <!-- COLUMNA PRINCIPAL -->
+            <div class="col-12 col-lg-8 order-2 order-lg-1">
+
+                <!-- PASO 1: Canchas -->
+                <div class="card p-4 shadow-sm bg-white mb-4">
+                    <h5 class="text-uppercase fw-bold mb-3" style="color:#03045e;">
+                        <i class="bi bi-dribbble me-2" style="color:#62ff00;"></i>1. Selecciona la Cancha
+                    </h5>
+                    <div class="row g-3" id="contenedorListaCanchas">
+                        <!-- Se llena con JS desde reservas_data -->
+                    </div>
+                </div>
+
+                <!-- PASO 2: Fecha y horarios -->
+                <div class="card p-4 shadow-sm bg-white mb-4">
+                    <h5 class="text-uppercase fw-bold mb-3" style="color:#03045e;">
+                        <i class="bi bi-calendar3 me-2" style="color:#62ff00;"></i>2. Agenda tu Encuentro
+                    </h5>
+                    <div class="row g-4">
+                        <div class="col-md-4 border-end">
+                            <label class="form-label fw-bold text-secondary small">Fecha del partido</label>
+                            <input type="date" id="fechaSeleccionada" class="form-control form-control-lg shadow-sm mb-2">
+                            <span class="text-muted small">La disponibilidad se actualiza al instante.</span>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h6 class="fw-bold text-secondary small text-uppercase m-0">Horarios disponibles</h6>
+                                <div class="d-flex gap-2 align-items-center" style="font-size:0.75rem;">
+                                    <span class="leyenda-dot" style="background:#62ff00;border:2px solid #4fd400;"></span> Libre
+                                    <span class="leyenda-dot ms-2" style="background:#ffe5e5;border:2px solid #f5c2c2;"></span> Ocupada
+                                </div>
+                            </div>
+                            <div id="contenedorHorarios" class="d-flex flex-wrap gap-2 p-3 rounded bg-light border">
+                                <span class="text-muted small">Selecciona una fecha para ver disponibilidad.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PASO 3: Datos -->
+                <div class="card p-4 shadow-sm bg-white mb-4">
+                    <h5 class="text-uppercase fw-bold mb-3" style="color:#03045e;">
+                        <i class="bi bi-person-fill me-2" style="color:#62ff00;"></i>3. Datos del Jugador
+                    </h5>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold text-secondary small">Nombre completo</label>
+                            <input type="text" id="nombre" class="form-control" placeholder="Ej. Juan Pérez" oninput="actualizarResumen()">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold text-secondary small">Teléfono celular</label>
+                            <input type="tel" id="telefono" class="form-control" placeholder="3001234567">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold text-secondary small">Correo electrónico</label>
+                            <input type="email" id="correo" class="form-control" placeholder="juan@correo.com">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold text-secondary small">Tiempo de alquiler</label>
+                            <select id="duracion" class="form-select" onchange="actualizarResumen()">
+                                <option value="1 Hora">1 Hora</option>
+                                <option value="2 Horas">2 Horas</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
+        <!-- TABLA RESERVAS -->
         <div class="row mt-5">
             <div class="col-12">
-                <div class="card p-4 shadow-sm seccion-contenedor bg-white">
-                    <h4 class="fw-bold text-dark border-bottom pb-2 mb-3 text-uppercase" style="color: #03045e !important;">
+                <div class="card p-4 shadow-sm bg-white">
+                    <h4 class="fw-bold border-bottom pb-2 mb-3 text-uppercase" style="color:#03045e;">
                         Panel de Gestión: Reservas Guardadas
                     </h4>
                     <div class="table-responsive">
                         <table class="table table-hover align-middle">
                             <thead class="table-light">
                                 <tr>
-                                    <th>Cliente</th>
-                                    <th>Cancha Seleccionada</th>
-                                    <th>Fecha</th>
-                                    <th>Hora</th>
-                                    <th>Duración</th>
-                                    <th>Estado</th>
-                                    <th class="text-center">Acciones</th>
+                                    <th>Cliente</th><th>Cancha</th><th>Fecha</th>
+                                    <th>Hora</th><th>Duración</th><th>Estado</th><th class="text-center">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody id="tablaReservasCuerpo">
@@ -165,37 +210,21 @@
                                     <td>{{ reserva.duracion }}</td>
                                     <td><span class="badge bg-success">Confirmada</span></td>
                                     <td class="text-center">
-
-                                    <form method="POST" action="/reservas/eliminar/{{ reserva.id }}/" style="display:inline;">
-                                        {% csrf_token %}
-                                        <button type="submit"
-                                            class="btn btn-sm btn-danger"
-                                            onclick="return confirm('¿Eliminar esta reserva?')">
-                                            <i class="bi bi-trash"></i>
+                                        <form method="POST" action="/reservas/eliminar/{{ reserva.id }}/" style="display:inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-sm btn-danger"
+                                                onclick="return confirm('¿Eliminar esta reserva?')">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                        <button class="btn btn-sm btn-warning ms-1"
+                                            onclick="abrirEdicion('{{ reserva.id }}','{{ reserva.nombre }}','{{ reserva.correo }}','{{ reserva.telefono }}','{{ reserva.fecha }}','{{ reserva.hora }}','{{ reserva.cancha }}','{{ reserva.duracion }}')">
+                                            <i class="bi bi-pencil-square"></i>
                                         </button>
-                                    </form>
-
-                                    <a href="javascript:void(0);"
-                                    class="btn btn-sm btn-warning me-1"
-                                    onclick="abrirEdicion(
-                                            '{{ reserva.id }}',
-                                            '{{ reserva.nombre }}',
-                                            '{{ reserva.correo }}',
-                                            '{{ reserva.telefono }}',
-                                            '{{ reserva.fecha }}',
-                                            '{{ reserva.hora }}',
-                                            '{{ reserva.cancha }}',
-                                            '{{ reserva.duracion }}'
-                                    )">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </a>
-
-                                </td>
+                                    </td>
                                 </tr>
                                 {% empty %}
-                                <tr>
-                                    <td colspan="7" class="text-center text-muted py-4">No hay reservas guardadas aún.</td>
-                                </tr>
+                                <tr><td colspan="7" class="text-center text-muted py-4">No hay reservas guardadas aún.</td></tr>
                                 {% endfor %}
                             </tbody>
                         </table>
@@ -203,36 +232,63 @@
                 </div>
             </div>
         </div>
-
     </div>
 
-    <footer class="mt-5" style="background: linear-gradient(to right, #1f252b, #2b333b); color: white; padding: 30px 0;">
+    <footer class="mt-5" style="background:linear-gradient(to right,#1f252b,#2b333b);color:white;padding:30px 0;">
         <div class="container">
             <div class="row mb-2">
                 <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">Teléfono: <span style="color:#62ff00;">+57 300 000 0000</span></div>
-                <div class="col-md-6 text-center text-md-end">Correo electrónico: <span style="color:#62ff00;">canchafacil@gmail.com</span></div>
+                <div class="col-md-6 text-center text-md-end">Correo: <span style="color:#62ff00;">canchafacil@gmail.com</span></div>
             </div>
-            <hr style="border-color: rgba(255,255,255,0.15);">
+            <hr style="border-color:rgba(255,255,255,0.15);">
             <div class="row align-items-center">
-                <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">Copyright © 2026 CanchaFácil. Todos los derechos reservados.</div>
+                <div class="col-md-6 text-center text-md-start mb-2 mb-md-0 small">Copyright © 2026 CanchaFácil. Todos los derechos reservados.</div>
                 <div class="col-md-6 text-center text-md-end">
-                    Síguenos en:
-                    <a href="#" style="color: #62ff00;" aria-label="YouTube"><i class="bi bi-youtube me-2 ms-2"></i></a>
-                    <a href="#" style="color: #62ff00;" aria-label="Facebook"><i class="bi bi-facebook me-2"></i></a>
-                    <a href="#" style="color: #62ff00;" aria-label="Instagram"><i class="bi bi-instagram me-2"></i></a>
-                    <a href="#" style="color: #62ff00;" aria-label="TikTok"><i class="bi bi-tiktok me-2"></i></a>
+                    <a href="#" style="color:#62ff00;"><i class="bi bi-youtube ms-2"></i></a>
+                    <a href="#" style="color:#62ff00;"><i class="bi bi-facebook ms-2"></i></a>
+                    <a href="#" style="color:#62ff00;"><i class="bi bi-instagram ms-2"></i></a>
+                    <a href="#" style="color:#62ff00;"><i class="bi bi-tiktok ms-2"></i></a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Modal Notificación -->
-    <div class="modal fade" id="modalNotificacion" tabindex="-1" aria-hidden="true">
+    <!-- Modal Editar -->
+    <div class="modal fade" id="modalEditarReserva" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Editar Reserva</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="editId">
+                    <input class="form-control mb-2" id="editNombre" placeholder="Nombre">
+                    <input class="form-control mb-2" id="editCorreo" placeholder="Correo">
+                    <input class="form-control mb-2" id="editTelefono" placeholder="Teléfono">
+                    <input type="date" class="form-control mb-2" id="editFecha">
+                    <input type="time" class="form-control mb-2" id="editHora">
+                    <input class="form-control mb-2" id="editCancha" placeholder="Cancha">
+                    <select class="form-select mb-2" id="editDuracion">
+                        <option value="1 Hora">1 Hora</option>
+                        <option value="2 Horas">2 Horas</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-success" onclick="guardarEdicion()">Guardar cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal notificación -->
+    <div class="modal fade" id="modalNotificacion" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header border-0">
                     <h5 class="modal-title fw-bold" id="modalNotiTitulo">Estatus</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body py-3 text-dark" id="modalNotiCuerpo">Operación efectuada.</div>
             </div>
@@ -240,125 +296,233 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
     <script>
-let canchaSeleccionadaInterna = null;
-let horaSeleccionadaInterna = null;
+    // ── DATOS ──────────────────────────────────────────────────
+    const CANCHAS = [
+        { nombre: 'Cancha Principal',       tipo: 'Fútbol 5',  precio: 80000  },
+        { nombre: 'Cancha Auxiliar',         tipo: 'Fútbol 7',  precio: 95000  },
+        { nombre: 'Cancha Sintética Norte',  tipo: 'Fútbol 5',  precio: 80000  },
+        { nombre: 'Cancha Sur',              tipo: 'Fútbol 11', precio: 120000 },
+    ];
 
-function getCSRFToken() {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, 10) === 'csrftoken=') {
-                cookieValue = decodeURIComponent(cookie.substring(10));
-                break;
-            }
+    const HORAS = [
+        '06:00','07:00','08:00','09:00','10:00','11:00',
+        '12:00','13:00','14:00','15:00','16:00','17:00',
+        '18:00','19:00','20:00','21:00','22:00'
+    ];
+
+    // Reservas existentes desde Django
+    const RESERVAS_BD = [
+        {% for r in reservas %}
+        { cancha: "{{ r.cancha }}", fecha: "{{ r.fecha }}", hora: "{{ r.hora }}" },
+        {% endfor %}
+    ];
+
+    // ── ESTADO ─────────────────────────────────────────────────
+    let canchaSeleccionada = null;
+    let horaSeleccionada   = null;
+
+    // ── INIT CANCHAS ───────────────────────────────────────────
+    function renderCanchas() {
+        const cont = document.getElementById('contenedorListaCanchas');
+        cont.innerHTML = CANCHAS.map((c, i) => `
+            <div class="col-6 col-md-3">
+                <div class="cancha-card text-center" id="cancha-${i}" onclick="seleccionarCancha(${i})">
+                    <i class="bi bi-dribbble fs-2 mb-1" style="color:#62ff00;"></i>
+                    <div class="fw-bold small">${c.nombre}</div>
+                    <div class="text-muted" style="font-size:0.75rem;">${c.tipo}</div>
+                    <div class="fw-bold mt-1" style="color:#03045e;">$${c.precio.toLocaleString('es-CO')}/h</div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function seleccionarCancha(i) {
+        canchaSeleccionada = CANCHAS[i];
+        document.querySelectorAll('.cancha-card').forEach(el => el.classList.remove('seleccionada'));
+        document.getElementById(`cancha-${i}`).classList.add('seleccionada');
+        horaSeleccionada = null;
+        renderHorarios();
+        actualizarResumen();
+    }
+
+    // ── HORARIOS ───────────────────────────────────────────────
+    function getOcupadas(cancha, fecha) {
+        if (!cancha || !fecha) return [];
+        return RESERVAS_BD
+            .filter(r => r.cancha === cancha.nombre && r.fecha === fecha)
+            .map(r => r.hora.substring(0, 5));
+    }
+
+    function renderHorarios() {
+        const cont  = document.getElementById('contenedorHorarios');
+        const fecha = document.getElementById('fechaSeleccionada').value;
+
+        if (!fecha) {
+            cont.innerHTML = '<span class="text-muted small">Selecciona una fecha para ver disponibilidad.</span>';
+            return;
+        }
+        if (!canchaSeleccionada) {
+            cont.innerHTML = '<span class="text-muted small">Primero selecciona una cancha.</span>';
+            return;
+        }
+
+        const ocupadas = getOcupadas(canchaSeleccionada, fecha);
+
+        cont.innerHTML = HORAS.map(h => {
+            const estaOcupada = ocupadas.includes(h);
+            const seleccionada = h === horaSeleccionada;
+            let cls = 'hora-btn';
+            if (estaOcupada)  cls += ' ocupada';
+            if (seleccionada && !estaOcupada) cls += ' seleccionada';
+            const titulo = estaOcupada ? 'Hora no disponible' : `Seleccionar ${h}`;
+            return `<button class="${cls}" ${estaOcupada ? 'disabled' : ''} title="${titulo}"
+                onclick="seleccionarHora('${h}')">${h}</button>`;
+        }).join('');
+    }
+
+    function seleccionarHora(h) {
+        horaSeleccionada = h;
+        renderHorarios();
+        actualizarResumen();
+    }
+
+    // ── RESUMEN ────────────────────────────────────────────────
+    function actualizarResumen() {
+        const fecha    = document.getElementById('fechaSeleccionada').value;
+        const duracion = document.getElementById('duracion').value;
+        const nombre   = document.getElementById('nombre').value.trim();
+
+        document.getElementById('resumenCancha').textContent   = canchaSeleccionada ? canchaSeleccionada.nombre : 'No seleccionada';
+        document.getElementById('resumenFecha').textContent    = fecha ? formatearFecha(fecha) : '-- / -- / ----';
+        document.getElementById('resumenHora').textContent     = horaSeleccionada || 'Por elegir';
+        document.getElementById('resumenDuracion').textContent = duracion;
+        document.getElementById('resumenNombre').textContent   = nombre || '—';
+
+        if (canchaSeleccionada) {
+            const horas = duracion === '2 Horas' ? 2 : 1;
+            const total = canchaSeleccionada.precio * horas;
+            document.getElementById('resumenPrecio').textContent = '$ ' + total.toLocaleString('es-CO');
+        } else {
+            document.getElementById('resumenPrecio').textContent = '$ 0';
         }
     }
-    return cookieValue;
-}
 
-function abrirEdicion(id, nombre, correo, telefono, fecha, hora, cancha, duracion) {
-    document.getElementById("editId").value = id;
-    document.getElementById("editNombre").value = nombre;
-    document.getElementById("editCorreo").value = correo;
-    document.getElementById("editTelefono").value = telefono;
-    document.getElementById("editFecha").value = fecha;
-    document.getElementById("editHora").value = hora;
-    document.getElementById("editCancha").value = cancha;
-    document.getElementById("editDuracion").value = duracion;
-
-    const modal = new bootstrap.Modal(document.getElementById('modalEditarReserva'));
-    modal.show();
-}
-
-function guardarEdicion() {
-    const id = document.getElementById("editId").value;
-
-    if (!id) {
-        alert("ID no válido");
-        return;
+    function formatearFecha(f) {
+        const [y, m, d] = f.split('-');
+        return `${d} / ${m} / ${y}`;
     }
 
-    const fecha = document.getElementById("editFecha").value;
+    // ── CONFIRMAR — guarda en BD y va a pago ──────────────────
+function confirmarReserva() {
+    const nombre   = document.getElementById('nombre').value.trim();
+    const correo   = document.getElementById('correo').value.trim();
+    const telefono = document.getElementById('telefono').value.trim();
+    const fecha    = document.getElementById('fechaSeleccionada').value;
+    const duracion = document.getElementById('duracion').value;
 
-    if (!fecha) {
-        alert("La fecha no puede estar vacía");
-        return;
-    }
+    if (!canchaSeleccionada) { alert('Selecciona una cancha.');  return; }
+    if (!fecha)               { alert('Selecciona una fecha.');  return; }
+    if (!horaSeleccionada)    { alert('Selecciona una hora.');   return; }
+    if (!nombre)              { alert('Ingresa tu nombre.');     return; }
+    if (!correo)              { alert('Ingresa tu correo.');     return; }
 
-    fetch(`/reservas/editar/${id}/`, {
-        method: "POST",
+    const btn = document.getElementById('btnConfirmarReserva');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Registrando reserva...';
+
+    fetch("{% url 'crear_reserva' %}", {
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json",
-            "X-CSRFToken": getCSRFToken()
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCSRF(),
         },
         body: JSON.stringify({
-            nombre: document.getElementById("editNombre").value,
-            correo: document.getElementById("editCorreo").value,
-            telefono: document.getElementById("editTelefono").value,
-            fecha: fecha,
-            hora: document.getElementById("editHora").value,
-            cancha: document.getElementById("editCancha").value,
-            duracion: document.getElementById("editDuracion").value
+            nombre, correo, telefono, fecha,
+            hora:   horaSeleccionada,
+            cancha: canchaSeleccionada.nombre,
+            duracion,
         })
     })
-    .then(res => res.json())
+    .then(r => r.json())
     .then(data => {
-        if (data.status === "ok") {
-            window.location.href = "/pagos/pago/";
+        if (data.status === 'ok') {
+            window.location.href = "{% url 'pago' %}";
         } else {
-            console.error(data);
-            alert(data.mensaje || "Error al actualizar la reserva");
+            alert(data.mensaje || 'Error al registrar la reserva.');
+            btn.disabled = false;
+            btn.innerHTML = '<i class="bi bi-credit-card me-2"></i>Confirmar e Ir a Pagar';
         }
     })
-    .catch(err => {
-        console.error(err);
-        alert("Error de conexión con el servidor");
+    .catch(() => {
+        alert('Error de conexión. Intenta de nuevo.');
+        btn.disabled = false;
+        btn.innerHTML = '<i class="bi bi-credit-card me-2"></i>Confirmar e Ir a Pagar';
     });
 }
-</script>
-<div class="modal fade" id="modalEditarReserva" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
+    // ── EDITAR ─────────────────────────────────────────────────
+    function abrirEdicion(id, nombre, correo, telefono, fecha, hora, cancha, duracion) {
+        document.getElementById('editId').value       = id;
+        document.getElementById('editNombre').value   = nombre;
+        document.getElementById('editCorreo').value   = correo;
+        document.getElementById('editTelefono').value = telefono;
+        document.getElementById('editFecha').value    = fecha;
+        document.getElementById('editHora').value     = hora;
+        document.getElementById('editCancha').value   = cancha;
+        document.getElementById('editDuracion').value = duracion;
+        new bootstrap.Modal(document.getElementById('modalEditarReserva')).show();
+    }
 
-      <div class="modal-header">
-        <h5 class="modal-title">Editar Reserva</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
+    function guardarEdicion() {
+        const id    = document.getElementById('editId').value;
+        const fecha = document.getElementById('editFecha').value;
+        if (!id || !fecha) { alert('Completa los campos requeridos.'); return; }
 
-      <div class="modal-body">
+        fetch(`/reservas/editar/${id}/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCSRF() },
+            body: JSON.stringify({
+                nombre:   document.getElementById('editNombre').value,
+                correo:   document.getElementById('editCorreo').value,
+                telefono: document.getElementById('editTelefono').value,
+                fecha,
+                hora:     document.getElementById('editHora').value,
+                cancha:   document.getElementById('editCancha').value,
+                duracion: document.getElementById('editDuracion').value,
+            })
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.status === 'ok') location.reload();
+            else alert(data.mensaje || 'Error al actualizar.');
+        });
+    }
 
-        <input type="hidden" id="editId">
+    // ── UTILS ──────────────────────────────────────────────────
+    function getCSRF() {
+        const c = document.cookie.split(';').find(c => c.trim().startsWith('csrftoken='));
+        return c ? decodeURIComponent(c.split('=')[1]) : '';
+    }
 
-        <input class="form-control mb-2" id="editNombre" placeholder="Nombre">
+    function mostrarModal(titulo, cuerpo) {
+        document.getElementById('modalNotiTitulo').textContent = titulo;
+        document.getElementById('modalNotiCuerpo').textContent = cuerpo;
+        new bootstrap.Modal(document.getElementById('modalNotificacion')).show();
+    }
 
-        <input class="form-control mb-2" id="editCorreo" placeholder="Correo">
+    // ── EVENTOS ────────────────────────────────────────────────
+    document.getElementById('fechaSeleccionada').addEventListener('change', () => {
+        horaSeleccionada = null;
+        renderHorarios();
+        actualizarResumen();
+    });
+    document.getElementById('duracion').addEventListener('change', actualizarResumen);
 
-        <input class="form-control mb-2" id="editTelefono" placeholder="Teléfono">
+    // Fecha mínima = hoy
+    document.getElementById('fechaSeleccionada').min = new Date().toISOString().split('T')[0];
 
-        <input type="date" class="form-control mb-2" id="editFecha">
-
-        <input type="time" class="form-control mb-2" id="editHora">
-
-        <input class="form-control mb-2" id="editCancha" placeholder="Cancha">
-
-        <select class="form-select mb-2" id="editDuracion">
-          <option value="1 Hora">1 Hora</option>
-          <option value="2 Horas">2 Horas</option>
-        </select>
-
-      </div>
-
-      <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button class="btn btn-success" onclick="guardarEdicion()">Guardar cambios</button>
-      </div>
-
-    </div>
-  </div>
-</div>
+    // ── INICIO ─────────────────────────────────────────────────
+    renderCanchas();
+    </script>
 </body>
 </html>
