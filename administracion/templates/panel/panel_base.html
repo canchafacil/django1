@@ -39,7 +39,9 @@
                         <button class="btn btn-custom rounded-pill" id="resenas-tab" data-bs-toggle="tab" data-bs-target="#sec-resenas" type="button" role="tab">Ver Reseñas</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="btn btn-custom rounded-pill" id="canchas-tab" data-bs-toggle="tab" data-bs-target="#sec-canchas" type="button" role="tab">Administrar Canchas</button>
+                        <a href="{% url 'cancha_admin' %}" class="btn btn-custom rounded-pill">
+                            Administrar Canchas
+                        </a>
                     </li>
                     <li class="nav-item ms-lg-3">
                         <a href="{% url 'login' %}" class="btn btn-salir rounded-pill fw-bold py-2 px-4">Salir</a>
@@ -56,8 +58,6 @@
             {% include 'panel/includes/panel_reservas.html' %}
             {% include 'panel/includes/ingresos.html' %}
             {% include 'panel/includes/reseñas.html' %}
-            {% include 'panel/includes/canchas.html' %}
-
         </div><!-- fin tab-content -->
     </main>
 
