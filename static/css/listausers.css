@@ -1,13 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&family=Roboto+Condensed:wght@400;700&display=swap');
 
-/* ===== VARIABLES CORPORATIVAS (CYBERPUNK) ===== */
 :root {
-    --primary-color: #62FF00;   /* Verde Principal */
-    --bg-black: #000000;        /* Negro Absoluto Fondo principal */
-    --bg-dark-card: #121212;    /* Variación gris oscuro para contenedores */
-    --text-white: #FFFFFF;      /* Blanco apoyo */
-    --hover-gray: #525151;      /* Color Hover / Fondo Alterno */
-    --danger-red: #ef4444;      /* Rojo Errores/Eliminaciones */
+    --primary-color: #62FF00;
+    --bg-black: #000000;
+    --bg-dark-card: #121212;
+    --text-white: #FFFFFF;
+    --hover-gray: #525151;
+    --danger-red: #ef4444;
 }
 
 /* ===== CONFIGURACIÓN GENERAL ===== */
@@ -31,7 +30,47 @@ body.adm-body {
     overflow-x: hidden;
 }
 
-/* ===== COMPONENTES DE NAVEGACIÓN GENERAL ===== */
+/* ===== BOTÓN PRINCIPAL ===== */
+.btn-custom {
+  background-color: #62ff00;
+  color: #000000;
+  font-weight: 800;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 24px;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-custom:hover {
+  background-color: #4fd400;
+  color: #000;
+  transform: translateY(-1px);
+}
+
+.btn-custom:active {
+  transform: translateY(0);
+}
+
+/* ===== LINKS ===== */
+.secondary-link {
+  color: #62ff00;
+  font-size: 0.9rem;
+}
+
+.secondary-link:hover {
+  color: #4fd400;
+}
+
+.back-link {
+  color: #888;
+  font-size: 0.85rem;
+}
+
+.back-link:hover {
+  color: #aaa;
+}
+
+/* ===== NAVBAR ===== */
 .cancha-nav {
     background-color: var(--bg-black) !important;
     border-bottom: 2px solid #1c2222 !important;
@@ -47,44 +86,8 @@ body.adm-body {
     text-decoration: none;
 }
 
-/* ===== COMPONENTES DE NAVEGACIÓN LATERAL (SIDEBAR) ===== */
-.sidebar {
-    height: 100vh;
-    background-color: var(--bg-dark-card);
-    color: var(--text-white);
-    padding: 20px;
-    border-right: 2px solid #1c2222;
-    position: sticky;
-    top: 0;
-}
-
-.sidebar a {
-    color: var(--text-white);
-    display: block;
-    margin: 15px 0;
-    padding: 10px 15px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.2s ease-in-out;
-}
-
-.sidebar a:hover {
-    background-color: var(--text-white);
-    color: var(--primary-color);
-    padding-left: 20px; /* Efecto sutil de desplazamiento lateral */
-}
-
-.sidebar a.active {
-    background-color: var(--primary-color) !important;
-    color: var(--text-white) !important;
-    font-weight: 700;
-    box-shadow: 0 0 15px rgba(98, 255, 0, 0.4);
-}
-
-/* ===== BOTONES GENERALES ===== */
 .btn-custom {
-
+    background-color: transparent;
     color: var(--text-white);
     border: 2px solid transparent;
     font-family: 'Nunito', sans-serif;
@@ -92,34 +95,61 @@ body.adm-body {
     padding: 8px 24px;
     transition: all 0.3s ease-in-out;
 }
-
 .btn-custom:hover {
-    background-color: var(--primary-color);
+    background-color: var(--hover-gray);
     color: var(--primary-color);
     border-color: var(--primary-color);
 }
-
 .btn-custom.active {
     background-color: var(--primary-color) !important;
-    color: var(--text-white) !important;
+    color: var(--bg-black) !important;
     border-color: var(--primary-color) !important;
-    box-shadow: 0 0 15px rgba(98, 255, 0, 0.4);
-}
-
-.btn-editar:hover {
-    background-color: white;
+    box-shadow: 0 0 15px rgba(98,255,0,0.4);
 }
 
 .btn-salir {
     background-color: #2a1414;
-    color: var(--danger-red) !important;
+    color: var(--danger-red);
     border: 2px solid var(--danger-red);
     transition: all 0.2s ease-in-out;
 }
-
 .btn-salir:hover {
     background-color: var(--danger-red);
-    color: var(--text-white) !important;
-    box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+    color: var(--text-white);
+    box-shadow: 0 0 15px rgba(239,68,68,0.4);
     transform: translateY(-2px);
+}
+
+/* ===== TABLA USUARIOS ===== */
+.adm-body {
+  background-color: #0a0a0a;
+}
+
+.table-dark {
+  --bs-table-bg: #111111 !important;
+  --bs-table-hover-bg: #1c1c1c !important;
+  border-color: #222 !important;
+}
+
+.table thead th {
+  color: #62ff00;
+  border-bottom: 2px solid #62ff0033;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.table tbody td {
+  vertical-align: middle;
+  border-color: #62ff0033;
+  color: #ddd;
+}
+
+/* ===== ALERTS ===== */
+.alert-danger {
+  background-color: #2a0a0a;
+  border-color: #ff444444;
+  color: #ff8080;
+  border-radius: 10px;
 }

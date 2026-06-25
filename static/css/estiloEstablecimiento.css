@@ -1,16 +1,120 @@
-/* ===== RESET ===== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800&family=Roboto+Condensed:wght@400;700&display=swap');
+
+:root {
+    --primary-color: #62FF00;
+    --bg-dark-card: #121212;
+    --text-white: #FFFFFF;
+    --hover-gray: #525151;
+    --danger-red: #ef4444;
 }
 
-/* ===== BODY ===== */
-body {
-  min-height: 100vh;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #0d0d0d;
-  color: white;
+/* ===== CONFIGURACIÓN GENERAL ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(../img/fondo-admi.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: var(--text-white);
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ===== BOTÓN PRINCIPAL ===== */
+.btn-custom {
+  background-color: #62ff00;
+  color: #000000;
+  font-weight: 800;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 24px;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-custom:hover {
+  background-color: #4fd400;
+  color: #000;
+  transform: translateY(-1px);
+}
+
+.btn-custom:active {
+  transform: translateY(0);
+}
+
+/* ===== LINKS ===== */
+.secondary-link {
+  color: #62ff00;
+  font-size: 0.9rem;
+}
+
+.secondary-link:hover {
+  color: #4fd400;
+}
+
+.back-link {
+  color: #888;
+  font-size: 0.85rem;
+}
+
+.back-link:hover {
+  color: #aaa;
+}
+
+/* ===== NAVBAR ===== */
+.cancha-nav {
+    background-color: var(--bg-black) !important;
+    border-bottom: 2px solid #1c2222 !important;
+    padding: 0.5rem 1rem !important;
+}
+
+.logo-text {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 2rem;
+    color: var(--text-white) !important;
+    letter-spacing: -0.5px;
+    text-decoration: none;
+}
+
+.btn-custom {
+    background-color: transparent;
+    color: var(--text-white);
+    border: 2px solid transparent;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    padding: 8px 24px;
+    transition: all 0.3s ease-in-out;
+}
+.btn-custom:hover {
+    background-color: var(--hover-gray);
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+.btn-custom.active {
+    background-color: var(--primary-color) !important;
+    color: var(--bg-black) !important;
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 15px rgba(98,255,0,0.4);
+}
+
+.btn-salir {
+    background-color: #2a1414;
+    color: var(--danger-red);
+    border: 2px solid var(--danger-red);
+    transition: all 0.2s ease-in-out;
+}
+.btn-salir:hover {
+    background-color: var(--danger-red);
+    color: var(--text-white);
+    box-shadow: 0 0 15px rgba(239,68,68,0.4);
+    transform: translateY(-2px);
 }
 
 /* ===== TITULO ===== */
@@ -110,38 +214,3 @@ h2 {
   box-shadow: none;
 }   
 
-/* ===== NAVBAR ===== */
-
-.navbar-admin {
-    background-color: #0d0d0d;
-    border-bottom: 2px solid #3a3a3a;
-    padding: 12px 0;
-}
-
-.navbar-brand {
-    color: white !important;
-    font-size: 2rem;
-}
-
-.text-verde {
-    color: #62FF00;
-}
-
-/* ===== BOTÓN INICIO ===== */
-
-.btn-inicio {
-    background-color: #62FF00;
-    color: black;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 22px;
-    transition: all .3s ease;
-}
-
-.btn-inicio:hover {
-    background-color: white;
-    color: black;
-    transform: translateY(-2px);
-    box-shadow: 0 0 15px rgba(98,255,0,.4);
-}

@@ -121,29 +121,79 @@
         });
     };
 
+   /* ── ESTRELLAS MODAL EDITAR ── */
+    const admStarLabels = ["","Malo","Regular","Bueno","Muy bueno","Excelente"];
+    let admEstrellaActual = 0;
+
+    function admHighlightStars(v) {
+        document.querySelectorAll('.adm-star-btn').forEach(btn => {
+            btn.style.color = parseInt(btn.dataset.v) <= v ? '#62FF00' : '#525151';
+        });
+    }
+    function admSetStar(v) {
+        admEstrellaActual = v;
+        document.getElementById('adm-star-label').textContent = admStarLabels[v];
+        document.getElementById('editar-estrellas-input').value = v;
+        admHighlightStars(v);
+    }
+
     /* ── EDITAR ── */
     let editarId = null;
-    let editarTd = null;
 
     function editarResena(id, btn) {
         editarId = id;
-        editarTd = btn.closest('tr').querySelector('.adm-comentario');
-        document.getElementById('editar-texto-input').value = editarTd.textContent.trim();
+        const fila = document.getElementById('fila-' + id);
+
+        document.getElementById('editar-nombre-input').value  = fila.dataset.nombre.charAt(0).toUpperCase() + fila.dataset.nombre.slice(1);
+        document.getElementById('editar-jugador-input').value = fila.querySelector('.adm-tag:not(.cancha)').textContent.trim();
+        document.getElementById('editar-cancha-input').value  = fila.dataset.cancha;
+        document.getElementById('editar-texto-input').value   = fila.querySelector('.adm-comentario').textContent.trim();
+
+        admSetStar(parseInt(fila.dataset.estrellas) || 0);
+
+        document.querySelectorAll('.adm-star-btn').forEach(b => {
+            b.onclick      = () => admSetStar(parseInt(b.dataset.v));
+            b.onmouseenter = () => admHighlightStars(parseInt(b.dataset.v));
+            b.onmouseleave = () => admHighlightStars(admEstrellaActual);
+        });
+
         document.getElementById('modal-editar-overlay').style.display = 'flex';
     }
+
     function cerrarModalEditar() {
         document.getElementById('modal-editar-overlay').style.display = 'none';
         editarId = null;
-        editarTd = null;
     }
+
     document.getElementById('btn-confirmar-editar').onclick = function () {
-        const nuevo = document.getElementById('editar-texto-input').value.trim();
-        if (!nuevo) return;
-        const tdRef = editarTd;
+        const nombre   = document.getElementById('editar-nombre-input').value.trim();
+        const jugador  = document.getElementById('editar-jugador-input').value;
+        const cancha   = document.getElementById('editar-cancha-input').value;
+        const estrellas = parseInt(document.getElementById('editar-estrellas-input').value);
+        const texto    = document.getElementById('editar-texto-input').value.trim();
+        if (!nombre || !texto || estrellas === 0) return;
+
         const idRef = editarId;
         cerrarModalEditar();
-        fetchPost(buildUrl(URL_EDITAR, idRef), { texto: nuevo }).then(r => {
-            if (r.ok && tdRef) tdRef.textContent = nuevo;
-        });
+
+        fetchPost(buildUrl(URL_EDITAR, idRef), { nombre, jugador, cancha, estrellas, texto })
+            .then(r => r.json())
+            .then(data => {
+                if (!data.ok) return;
+                const fila = document.getElementById('fila-' + idRef);
+                fila.dataset.estrellas = data.estrellas;
+                fila.dataset.cancha    = data.cancha;
+                fila.dataset.nombre    = data.nombre.toLowerCase();
+                fila.dataset.texto     = data.texto.toLowerCase();
+
+                fila.querySelector('.text-white.fw-bold').textContent          = data.nombre;
+                fila.querySelector('.adm-avatar').textContent                  = data.nombre.slice(0,2).toUpperCase();
+                fila.querySelector('.adm-tag:not(.cancha)').textContent        = data.jugador;
+                fila.querySelector('.adm-tag.cancha').textContent              = data.cancha;
+                fila.querySelector('.adm-comentario').textContent              = data.texto;
+                fila.querySelectorAll('.adm-stars span').forEach((s, i) => {
+                    s.style.color = i < data.estrellas ? '#62FF00' : '#525151';
+                });
+            });
     };
 </script>
