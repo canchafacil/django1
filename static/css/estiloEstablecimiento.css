@@ -2,7 +2,6 @@
 
 :root {
     --primary-color: #62FF00;
-    --bg-dark-card: #121212;
     --text-white: #FFFFFF;
     --hover-gray: #525151;
     --danger-red: #ef4444;
@@ -16,7 +15,8 @@
 }
 
 body{
-    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(../img/fondo-admi.jpg);
+    background-color: var(--bg-black);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(static/img/fondo-admi.jpg) !important;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

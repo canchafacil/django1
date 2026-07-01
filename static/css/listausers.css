@@ -19,7 +19,7 @@
 body.adm-body {
     background-color: var(--bg-black);
     /* Imagen de fondo unificada con filtro oscuro corporativo */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(../img/fondo-admi.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url(../img/fondo-admi.jpg) !important;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

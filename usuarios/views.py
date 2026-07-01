@@ -1,3 +1,4 @@
+from urllib import request
 from django.shortcuts import render, redirect
 from .models import Usuario
 
@@ -96,10 +97,18 @@ def login_admin(request):
                 password=password
             )
 
-            if usuario.rol == 'ADMIN':
+            request.session['usuario_id'] = usuario.id
+            request.session['rol'] = usuario.rol
+            request.session['nombre'] = usuario.first_name
+
+            if usuario.rol == 'SUPERADMIN':
+                return redirect('lista_usuarios')
+
+            elif usuario.rol == 'ADMIN':
                 return redirect('panel_principal')
 
-            return redirect('inicio')
+            else:
+                return redirect('inicio')
 
         except Usuario.DoesNotExist:
             return render(
@@ -111,6 +120,9 @@ def login_admin(request):
     return render(request, 'usuarios/login_admin.html')
 
 def lista_usuarios(request):
+
+    if request.session.get('rol') != 'SUPERADMIN':
+        return redirect('inicio')
 
     usuarios = Usuario.objects.all()
 
@@ -134,9 +146,11 @@ def editar_usuario(request, id):
     if request.method == 'POST':
 
         usuario.first_name = request.POST.get('first_name')
+        usuario.last_name = request.POST.get('last_name')
         usuario.email = request.POST.get('email')
         usuario.phone = request.POST.get('phone')
         usuario.password = request.POST.get('password')
+        usuario.rol = request.POST.get('rol')
 
         usuario.save()
 
@@ -147,3 +161,25 @@ def editar_usuario(request, id):
         'usuarios/editar_usuarios.html',
         {'usuario': usuario}
     )
+
+def deshabilitar_usuario(request, id):
+
+    if request.session.get('rol') != 'SUPERADMIN':
+        return redirect('inicio')
+
+    usuario = Usuario.objects.get(id=id)
+    usuario.activo = False
+    usuario.save()
+
+    return redirect('lista_usuarios')
+
+def habilitar_usuario(request, id):
+
+    if request.session.get('rol') != 'SUPERADMIN':
+        return redirect('inicio')
+
+    usuario = Usuario.objects.get(id=id)
+    usuario.activo = True
+    usuario.save()
+
+    return redirect('lista_usuarios')

@@ -16,9 +16,9 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark shadow cancha-nav">
         <div class="container-fluid">
-            <div class="d-flex align-items-center ms-5">
+            <div class="d-flex align-items-center ms-4">
                 <img src="{% static 'img/logo-green.png' %}" style="height:90px;object-fit:contain;" alt="Logo CanchaFácil">
-                <a class="navbar-brand fw-bold ms-2 m-0 logo-text" href="#" style="font-size:2rem;color:#fff;">
+                <a class="navbar-brand fw-bold m-0 logo-text" href="#" style="font-size:2rem;color:#fff;">
                     Cancha<span style="color:#62ff00;">Fácil</span>
                 </a>
             </div>
@@ -26,7 +26,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end me-5" id="menuNav">
-                <ul class="nav navbar-nav mt-3 mt-lg-0  gap-4" id="admTabs" role="tablist">
+                <ul class="nav navbar-nav mt-3 mt-lg-0  gap-1" id="admTabs" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="btn btn-custom rounded-pill active" id="mes-tab" data-bs-toggle="tab" data-bs-target="#sec-ingreso-mes" type="button" role="tab">Ingreso Mes</button>
                     </li>
@@ -44,13 +44,8 @@
                             Administrar Canchas
                         </a>
                     </li>
-                    <li class="nav-item" role="presentation">
-                        <a href="{% url 'lista_usuarios' %}" class="btn btn-custom rounded-pill">
-                            Lista usuarios
-                        </a>
-                    </li>
                     <li class="nav-item ms-5">
-                        <a href="{% url 'login' %}" class="btn btn-salir rounded-pill fw-bold py-2 px-4">Salir</a>
+                        <a href="{% url 'login_admin' %}" class="btn btn-salir rounded-pill fw-bold py-2 px-4">Salir</a>
                     </li>
                 </ul>
             </div>

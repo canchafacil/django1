@@ -3,6 +3,7 @@ from django.db import models
 class Usuario(models.Model):
 
     ROLES = [
+        ('SUPERADMIN', 'Super Administrador'),
         ('ADMIN', 'Administrador'),
         ('CLIENTE', 'Cliente'),
     ]
@@ -14,9 +15,11 @@ class Usuario(models.Model):
     password = models.CharField(max_length=100)
 
     rol = models.CharField(
-        max_length=10,
+        max_length=15,
         choices=ROLES
     )
 
+    activo = models.BooleanField(default=True)
+
     def __str__(self):
-        return f"{self.first_name} - {self.rol}"
+        return f"{self.first_name} ({self.rol})"
