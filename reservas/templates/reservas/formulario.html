@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,6 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{% static 'css/formulario.css' %}">
 </head>
+
 <body class="bg-light">
 
     <nav class="navbar navbar-expand-lg navbar-dark shadow" style="background-color: #03045e;">
@@ -43,19 +45,22 @@
                 <div class="col-12 col-md-4 paso-item">
                     <div class="paso-numero">1</div>
                     <div class="paso-titulo">Elige tu Cancha</div>
-                    <p class="paso-texto">Explora el catálogo y selecciona la cancha que más te guste según el tipo de juego.</p>
+                    <p class="paso-texto">Explora el catálogo y selecciona la cancha que más te guste según el tipo de
+                        juego.</p>
                     <div class="paso-linea d-none d-md-block"></div>
                 </div>
                 <div class="col-12 col-md-4 paso-item">
                     <div class="paso-numero">2</div>
                     <div class="paso-titulo">Selecciona el Horario</div>
-                    <p class="paso-texto">Consulta la disponibilidad en tiempo real y elige el día y la hora que más te convenga.</p>
+                    <p class="paso-texto">Consulta la disponibilidad en tiempo real y elige el día y la hora que más te
+                        convenga.</p>
                     <div class="paso-linea d-none d-md-block"></div>
                 </div>
                 <div class="col-12 col-md-4 paso-item">
                     <div class="paso-numero">3</div>
                     <div class="paso-titulo">Confirma y Juega</div>
-                    <p class="paso-texto">Completa tu reserva, recibe la confirmación y llega a disfrutar. ¡Así de fácil!</p>
+                    <p class="paso-texto">Completa tu reserva, recibe la confirmación y llega a disfrutar. ¡Así de
+                        fácil!</p>
                 </div>
             </div>
             <div class="text-center mt-4">
@@ -69,10 +74,12 @@
             <div class="col-12 col-lg-4 order-1 order-lg-2">
                 <div class="card shadow border-0 text-white sticky-summary" style="background-color: #03045e;">
                     <div class="card-body p-3 p-md-4">
-                        <h5 class="fw-bold mb-3 border-bottom pb-2 text-uppercase text-center" style="color:#62ff00;font-size:1rem;">
+                        <h5 class="fw-bold mb-3 border-bottom pb-2 text-uppercase text-center"
+                            style="color:#62ff00;font-size:1rem;">
                             Resumen de tu Turno
                         </h5>
-                        <div class="bg-black bg-opacity-25 rounded p-3 text-center mb-4 border border-secondary border-opacity-20 d-none d-md-block">
+                        <div
+                            class="bg-black bg-opacity-25 rounded p-3 text-center mb-4 border border-secondary border-opacity-20 d-none d-md-block">
                             <i class="bi bi-calendar-check text-white d-block mb-1" style="font-size:2.5rem;"></i>
                             <small class="text-white-50 text-uppercase">CanchaFácil Booking</small>
                         </div>
@@ -137,20 +144,24 @@
                     <div class="row g-4">
                         <div class="col-md-4 border-end">
                             <label class="form-label fw-bold text-secondary small">Fecha del partido</label>
-                            <input type="date" id="fechaSeleccionada" class="form-control form-control-lg shadow-sm mb-2">
+                            <input type="date" id="fechaSeleccionada"
+                                class="form-control form-control-lg shadow-sm mb-2">
                             <span class="text-muted small">La disponibilidad se actualiza al instante.</span>
                         </div>
                         <div class="col-md-8">
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <h6 class="fw-bold text-secondary small text-uppercase m-0">Horarios disponibles</h6>
                                 <div class="d-flex gap-2 align-items-center" style="font-size:0.75rem;">
-                                    <span class="leyenda-dot" style="background:#62ff00;border:2px solid #4fd400;"></span> Libre
-                                    <span class="leyenda-dot ms-2" style="background:#ffe5e5;border:2px solid #f5c2c2;"></span> Ocupada
+                                    <span class="leyenda-dot"
+                                        style="background:#62ff00;border:2px solid #4fd400;"></span> Libre
+                                    <span class="leyenda-dot ms-2"
+                                        style="background:#ffe5e5;border:2px solid #f5c2c2;"></span> Ocupada
                                 </div>
                             </div>
                             <div id="contenedorHorarios" class="d-flex flex-wrap gap-2 p-3 rounded bg-light border">
                                 <span class="text-muted small">Selecciona una fecha para ver disponibilidad.</span>
                             </div>
+                            <span class="text-muted small d-block mt-2">Puedes seleccionar más de una hora.</span>
                         </div>
                     </div>
                 </div>
@@ -163,7 +174,8 @@
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label fw-semibold text-secondary small">Nombre completo</label>
-                            <input type="text" id="nombre" class="form-control" placeholder="Ej. Juan Pérez" oninput="actualizarResumen()">
+                            <input type="text" id="nombre" class="form-control" placeholder="Ej. Juan Pérez"
+                                oninput="actualizarResumen()">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold text-secondary small">Teléfono celular</label>
@@ -172,13 +184,6 @@
                         <div class="col-md-6">
                             <label class="form-label fw-semibold text-secondary small">Correo electrónico</label>
                             <input type="email" id="correo" class="form-control" placeholder="juan@correo.com">
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-semibold text-secondary small">Tiempo de alquiler</label>
-                            <select id="duracion" class="form-select" onchange="actualizarResumen()">
-                                <option value="1 Hora">1 Hora</option>
-                                <option value="2 Horas">2 Horas</option>
-                            </select>
                         </div>
                     </div>
                 </div>
@@ -196,8 +201,13 @@
                         <table class="table table-hover align-middle">
                             <thead class="table-light">
                                 <tr>
-                                    <th>Cliente</th><th>Cancha</th><th>Fecha</th>
-                                    <th>Hora</th><th>Duración</th><th>Estado</th><th class="text-center">Acciones</th>
+                                    <th>Cliente</th>
+                                    <th>Cancha</th>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    <th>Duración</th>
+                                    <th>Estado</th>
+                                    <th class="text-center">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody id="tablaReservasCuerpo">
@@ -205,12 +215,13 @@
                                 <tr>
                                     <td>{{ reserva.nombre }}</td>
                                     <td>{{ reserva.cancha }}</td>
-                                    <td>{{ reserva.fecha }}</td>
-                                    <td>{{ reserva.hora }}</td>
+                                    <td>{{ reserva.fecha|date:"Y-m-d" }}</td>
+                                    <td>{{ reserva.hora|time:"H:i" }}</td>
                                     <td>{{ reserva.duracion }}</td>
                                     <td><span class="badge bg-success">Confirmada</span></td>
                                     <td class="text-center">
-                                        <form method="POST" action="/reservas/eliminar/{{ reserva.id }}/" style="display:inline;">
+                                        <form method="POST" action="/reservas/eliminar/{{ reserva.id }}/"
+                                            style="display:inline;">
                                             {% csrf_token %}
                                             <button type="submit" class="btn btn-sm btn-danger"
                                                 onclick="return confirm('¿Eliminar esta reserva?')">
@@ -218,13 +229,16 @@
                                             </button>
                                         </form>
                                         <button class="btn btn-sm btn-warning ms-1"
-                                            onclick="abrirEdicion('{{ reserva.id }}','{{ reserva.nombre }}','{{ reserva.correo }}','{{ reserva.telefono }}','{{ reserva.fecha }}','{{ reserva.hora }}','{{ reserva.cancha }}','{{ reserva.duracion }}')">
+                                            onclick="abrirEdicion('{{ reserva.id }}','{{ reserva.nombre }}','{{ reserva.correo }}','{{ reserva.telefono }}','{{ reserva.fecha|date:"Y-m-d" }}','{{ reserva.hora|time:"H:i" }}','{{ reserva.cancha }}','{{ reserva.duracion }}')">
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
                                     </td>
                                 </tr>
                                 {% empty %}
-                                <tr><td colspan="7" class="text-center text-muted py-4">No hay reservas guardadas aún.</td></tr>
+                                <tr>
+                                    <td colspan="7" class="text-center text-muted py-4">No hay reservas guardadas aún.
+                                    </td>
+                                </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
@@ -237,12 +251,15 @@
     <footer class="mt-5" style="background:linear-gradient(to right,#1f252b,#2b333b);color:white;padding:30px 0;">
         <div class="container">
             <div class="row mb-2">
-                <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">Teléfono: <span style="color:#62ff00;">+57 300 000 0000</span></div>
-                <div class="col-md-6 text-center text-md-end">Correo: <span style="color:#62ff00;">canchafacil@gmail.com</span></div>
+                <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">Teléfono: <span style="color:#62ff00;">+57
+                        300 000 0000</span></div>
+                <div class="col-md-6 text-center text-md-end">Correo: <span
+                        style="color:#62ff00;">canchafacil@gmail.com</span></div>
             </div>
             <hr style="border-color:rgba(255,255,255,0.15);">
             <div class="row align-items-center">
-                <div class="col-md-6 text-center text-md-start mb-2 mb-md-0 small">Copyright © 2026 CanchaFácil. Todos los derechos reservados.</div>
+                <div class="col-md-6 text-center text-md-start mb-2 mb-md-0 small">Copyright © 2026 CanchaFácil. Todos
+                    los derechos reservados.</div>
                 <div class="col-md-6 text-center text-md-end">
                     <a href="#" style="color:#62ff00;"><i class="bi bi-youtube ms-2"></i></a>
                     <a href="#" style="color:#62ff00;"><i class="bi bi-facebook ms-2"></i></a>
@@ -255,7 +272,7 @@
 
     <!-- Modal Editar -->
     <div class="modal fade" id="modalEditarReserva" tabindex="-1">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title fw-bold">Editar Reserva</h5>
@@ -263,16 +280,57 @@
                 </div>
                 <div class="modal-body">
                     <input type="hidden" id="editId">
-                    <input class="form-control mb-2" id="editNombre" placeholder="Nombre">
-                    <input class="form-control mb-2" id="editCorreo" placeholder="Correo">
-                    <input class="form-control mb-2" id="editTelefono" placeholder="Teléfono">
-                    <input type="date" class="form-control mb-2" id="editFecha">
-                    <input type="time" class="form-control mb-2" id="editHora">
-                    <input class="form-control mb-2" id="editCancha" placeholder="Cancha">
-                    <select class="form-select mb-2" id="editDuracion">
-                        <option value="1 Hora">1 Hora</option>
-                        <option value="2 Horas">2 Horas</option>
-                    </select>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-secondary">Nombre</label>
+                            <input class="form-control" id="editNombre" placeholder="Nombre">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-secondary">Teléfono</label>
+                            <input class="form-control" id="editTelefono" placeholder="Teléfono">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label small fw-bold text-secondary">Correo</label>
+                            <input class="form-control" id="editCorreo" placeholder="Correo">
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-secondary">Cancha</label>
+                            <select class="form-select" id="editCancha" onchange="onCambioCanchaEdit()"></select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-secondary">Fecha del partido</label>
+                            <input type="date" class="form-control" id="editFecha" onchange="onCambioFechaEdit()">
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label class="form-label small fw-bold text-secondary text-uppercase m-0">Horarios
+                                disponibles</label>
+                            <div class="d-flex gap-2 align-items-center" style="font-size:0.72rem;">
+                                <span class="leyenda-dot" style="background:#62ff00;border:2px solid #4fd400;"></span>
+                                Libre
+                                <span class="leyenda-dot ms-2"
+                                    style="background:#ffe5e5;border:2px solid #f5c2c2;"></span> Ocupada
+                            </div>
+                        </div>
+                        <div id="editContenedorHorarios"
+                            class="d-flex flex-wrap gap-2 p-3 rounded bg-light border"
+                            style="max-height:190px; overflow-y:auto;">
+                            <span class="text-muted small">Selecciona cancha y fecha.</span>
+                        </div>
+                        <span class="text-muted small d-block mt-2">Puedes seleccionar o quitar varias horas.</span>
+                    </div>
+
+                    <div class="rounded p-3 mt-3 border" style="background-color:#f4f6fb;" id="editContenedorPrecio">
+                        <!-- Se llena dinámicamente con JS -->
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -297,35 +355,41 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-    // ── DATOS ──────────────────────────────────────────────────
-    const CANCHAS = [
-        { nombre: 'Cancha Principal',       tipo: 'Fútbol 5',  precio: 80000  },
-        { nombre: 'Cancha Auxiliar',         tipo: 'Fútbol 7',  precio: 95000  },
-        { nombre: 'Cancha Sintética Norte',  tipo: 'Fútbol 5',  precio: 80000  },
-        { nombre: 'Cancha Sur',              tipo: 'Fútbol 11', precio: 120000 },
-    ];
+        // ── DATOS ──────────────────────────────────────────────────
+        const CANCHAS = [
+            { nombre: 'Cancha Principal', tipo: 'Fútbol 5', precio: 80000 },
+            { nombre: 'Cancha Auxiliar', tipo: 'Fútbol 7', precio: 95000 },
+            { nombre: 'Cancha Sintética Norte', tipo: 'Fútbol 5', precio: 80000 },
+            { nombre: 'Cancha Sur', tipo: 'Fútbol 11', precio: 120000 },
+        ];
 
-    const HORAS = [
-        '06:00','07:00','08:00','09:00','10:00','11:00',
-        '12:00','13:00','14:00','15:00','16:00','17:00',
-        '18:00','19:00','20:00','21:00','22:00'
-    ];
+        const HORAS = [
+            '06:00', '07:00', '08:00', '09:00', '10:00', '11:00',
+            '12:00', '13:00', '14:00', '15:00', '16:00', '17:00',
+            '18:00', '19:00', '20:00', '21:00', '22:00'
+        ];
 
-    // Reservas existentes desde Django
-    const RESERVAS_BD = [
-        {% for r in reservas %}
-        { cancha: "{{ r.cancha }}", fecha: "{{ r.fecha }}", hora: "{{ r.hora }}" },
+        // Reservas existentes desde Django (incluye id para poder excluir
+        // la propia reserva que se está editando al calcular ocupadas)
+        const RESERVAS_BD = [
+            {% for r in reservas %}
+        { id: {{ r.id }}, cancha: "{{ r.cancha }}", fecha: "{{ r.fecha }}", hora: "{{ r.hora }}" },
         {% endfor %}
     ];
 
-    // ── ESTADO ─────────────────────────────────────────────────
-    let canchaSeleccionada = null;
-    let horaSeleccionada   = null;
+        // ── ESTADO (formulario principal) ─────────────────────────
+        let canchaSeleccionada = null;
+        let horasSeleccionadas = []; // selección múltiple de horas
 
-    // ── INIT CANCHAS ───────────────────────────────────────────
-    function renderCanchas() {
-        const cont = document.getElementById('contenedorListaCanchas');
-        cont.innerHTML = CANCHAS.map((c, i) => `
+        // ── ESTADO (modal de edición) ──────────────────────────────
+        let editIdActual = null;
+        let editHorasSeleccionadas = [];
+        let editPrecioOriginalTotal = 0;
+
+        // ── INIT CANCHAS ───────────────────────────────────────────
+        function renderCanchas() {
+            const cont = document.getElementById('contenedorListaCanchas');
+            cont.innerHTML = CANCHAS.map((c, i) => `
             <div class="col-6 col-md-3">
                 <div class="cancha-card text-center" id="cancha-${i}" onclick="seleccionarCancha(${i})">
                     <i class="bi bi-dribbble fs-2 mb-1" style="color:#62ff00;"></i>
@@ -335,194 +399,367 @@
                 </div>
             </div>
         `).join('');
-    }
-
-    function seleccionarCancha(i) {
-        canchaSeleccionada = CANCHAS[i];
-        document.querySelectorAll('.cancha-card').forEach(el => el.classList.remove('seleccionada'));
-        document.getElementById(`cancha-${i}`).classList.add('seleccionada');
-        horaSeleccionada = null;
-        renderHorarios();
-        actualizarResumen();
-    }
-
-    // ── HORARIOS ───────────────────────────────────────────────
-    function getOcupadas(cancha, fecha) {
-        if (!cancha || !fecha) return [];
-        return RESERVAS_BD
-            .filter(r => r.cancha === cancha.nombre && r.fecha === fecha)
-            .map(r => r.hora.substring(0, 5));
-    }
-
-    function renderHorarios() {
-        const cont  = document.getElementById('contenedorHorarios');
-        const fecha = document.getElementById('fechaSeleccionada').value;
-
-        if (!fecha) {
-            cont.innerHTML = '<span class="text-muted small">Selecciona una fecha para ver disponibilidad.</span>';
-            return;
-        }
-        if (!canchaSeleccionada) {
-            cont.innerHTML = '<span class="text-muted small">Primero selecciona una cancha.</span>';
-            return;
         }
 
-        const ocupadas = getOcupadas(canchaSeleccionada, fecha);
+        function seleccionarCancha(i) {
+            canchaSeleccionada = CANCHAS[i];
+            document.querySelectorAll('.cancha-card').forEach(el => el.classList.remove('seleccionada'));
+            document.getElementById(`cancha-${i}`).classList.add('seleccionada');
+            horasSeleccionadas = [];
+            renderHorarios();
+            actualizarResumen();
+        }
 
-        cont.innerHTML = HORAS.map(h => {
-            const estaOcupada = ocupadas.includes(h);
-            const seleccionada = h === horaSeleccionada;
-            let cls = 'hora-btn';
-            if (estaOcupada)  cls += ' ocupada';
-            if (seleccionada && !estaOcupada) cls += ' seleccionada';
-            const titulo = estaOcupada ? 'Hora no disponible' : `Seleccionar ${h}`;
-            return `<button class="${cls}" ${estaOcupada ? 'disabled' : ''} title="${titulo}"
+        // ── HORARIOS (formulario principal) ────────────────────────
+        function getOcupadas(cancha, fecha, idExcluir = null) {
+            if (!cancha || !fecha) return [];
+            return RESERVAS_BD
+                .filter(r => r.cancha === cancha.nombre && r.fecha === fecha && r.id !== idExcluir)
+                .map(r => r.hora.substring(0, 5));
+        }
+
+        function renderHorarios() {
+            const cont = document.getElementById('contenedorHorarios');
+            const fecha = document.getElementById('fechaSeleccionada').value;
+
+            if (!fecha) {
+                cont.innerHTML = '<span class="text-muted small">Selecciona una fecha para ver disponibilidad.</span>';
+                return;
+            }
+            if (!canchaSeleccionada) {
+                cont.innerHTML = '<span class="text-muted small">Primero selecciona una cancha.</span>';
+                return;
+            }
+
+            const ocupadas = getOcupadas(canchaSeleccionada, fecha);
+
+            cont.innerHTML = HORAS.map(h => {
+                const estaOcupada = ocupadas.includes(h);
+                const seleccionada = horasSeleccionadas.includes(h);
+                let cls = 'hora-btn';
+                if (estaOcupada) cls += ' ocupada';
+                if (seleccionada && !estaOcupada) cls += ' seleccionada';
+                const titulo = estaOcupada ? 'Hora no disponible' : `Seleccionar ${h}`;
+                return `<button class="${cls}" ${estaOcupada ? 'disabled' : ''} title="${titulo}"
                 onclick="seleccionarHora('${h}')">${h}</button>`;
-        }).join('');
-    }
-
-    function seleccionarHora(h) {
-        horaSeleccionada = h;
-        renderHorarios();
-        actualizarResumen();
-    }
-
-    // ── RESUMEN ────────────────────────────────────────────────
-    function actualizarResumen() {
-        const fecha    = document.getElementById('fechaSeleccionada').value;
-        const duracion = document.getElementById('duracion').value;
-        const nombre   = document.getElementById('nombre').value.trim();
-
-        document.getElementById('resumenCancha').textContent   = canchaSeleccionada ? canchaSeleccionada.nombre : 'No seleccionada';
-        document.getElementById('resumenFecha').textContent    = fecha ? formatearFecha(fecha) : '-- / -- / ----';
-        document.getElementById('resumenHora').textContent     = horaSeleccionada || 'Por elegir';
-        document.getElementById('resumenDuracion').textContent = duracion;
-        document.getElementById('resumenNombre').textContent   = nombre || '—';
-
-        if (canchaSeleccionada) {
-            const horas = duracion === '2 Horas' ? 2 : 1;
-            const total = canchaSeleccionada.precio * horas;
-            document.getElementById('resumenPrecio').textContent = '$ ' + total.toLocaleString('es-CO');
-        } else {
-            document.getElementById('resumenPrecio').textContent = '$ 0';
+            }).join('');
         }
-    }
 
-    function formatearFecha(f) {
-        const [y, m, d] = f.split('-');
-        return `${d} / ${m} / ${y}`;
-    }
-
-    // ── CONFIRMAR — guarda en BD y va a pago ──────────────────
-function confirmarReserva() {
-    const nombre   = document.getElementById('nombre').value.trim();
-    const correo   = document.getElementById('correo').value.trim();
-    const telefono = document.getElementById('telefono').value.trim();
-    const fecha    = document.getElementById('fechaSeleccionada').value;
-    const duracion = document.getElementById('duracion').value;
-
-    if (!canchaSeleccionada) { alert('Selecciona una cancha.');  return; }
-    if (!fecha)               { alert('Selecciona una fecha.');  return; }
-    if (!horaSeleccionada)    { alert('Selecciona una hora.');   return; }
-    if (!nombre)              { alert('Ingresa tu nombre.');     return; }
-    if (!correo)              { alert('Ingresa tu correo.');     return; }
-
-    const btn = document.getElementById('btnConfirmarReserva');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Registrando reserva...';
-
-    fetch("{% url 'crear_reserva' %}", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': getCSRF(),
-        },
-        body: JSON.stringify({
-            nombre, correo, telefono, fecha,
-            hora:   horaSeleccionada,
-            cancha: canchaSeleccionada.nombre,
-            duracion,
-        })
-    })
-    .then(r => r.json())
-    .then(data => {
-        if (data.status === 'ok') {
-            window.location.href = "{% url 'pago' %}";
-        } else {
-            alert(data.mensaje || 'Error al registrar la reserva.');
-            btn.disabled = false;
-            btn.innerHTML = '<i class="bi bi-credit-card me-2"></i>Confirmar e Ir a Pagar';
+        function seleccionarHora(h) {
+            const idx = horasSeleccionadas.indexOf(h);
+            if (idx === -1) {
+                horasSeleccionadas.push(h);
+            } else {
+                horasSeleccionadas.splice(idx, 1);
+            }
+            renderHorarios();
+            actualizarResumen();
         }
-    })
-    .catch(() => {
-        alert('Error de conexión. Intenta de nuevo.');
-        btn.disabled = false;
-        btn.innerHTML = '<i class="bi bi-credit-card me-2"></i>Confirmar e Ir a Pagar';
-    });
-}
-    // ── EDITAR ─────────────────────────────────────────────────
-    function abrirEdicion(id, nombre, correo, telefono, fecha, hora, cancha, duracion) {
-        document.getElementById('editId').value       = id;
-        document.getElementById('editNombre').value   = nombre;
-        document.getElementById('editCorreo').value   = correo;
-        document.getElementById('editTelefono').value = telefono;
-        document.getElementById('editFecha').value    = fecha;
-        document.getElementById('editHora').value     = hora;
-        document.getElementById('editCancha').value   = cancha;
-        document.getElementById('editDuracion').value = duracion;
-        new bootstrap.Modal(document.getElementById('modalEditarReserva')).show();
-    }
 
-    function guardarEdicion() {
-        const id    = document.getElementById('editId').value;
-        const fecha = document.getElementById('editFecha').value;
-        if (!id || !fecha) { alert('Completa los campos requeridos.'); return; }
+        // ── RESUMEN (formulario principal) ─────────────────────────
+        function actualizarResumen() {
+            const fecha = document.getElementById('fechaSeleccionada').value;
+            const nombre = document.getElementById('nombre').value.trim();
 
-        fetch(`/reservas/editar/${id}/`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCSRF() },
-            body: JSON.stringify({
-                nombre:   document.getElementById('editNombre').value,
-                correo:   document.getElementById('editCorreo').value,
-                telefono: document.getElementById('editTelefono').value,
-                fecha,
-                hora:     document.getElementById('editHora').value,
-                cancha:   document.getElementById('editCancha').value,
-                duracion: document.getElementById('editDuracion').value,
+            document.getElementById('resumenCancha').textContent = canchaSeleccionada ? canchaSeleccionada.nombre : 'No seleccionada';
+            document.getElementById('resumenFecha').textContent = fecha ? formatearFecha(fecha) : '-- / -- / ----';
+
+            const horasOrdenadas = [...horasSeleccionadas].sort();
+            document.getElementById('resumenHora').textContent = horasOrdenadas.length ? horasOrdenadas.join(', ') : 'Por elegir';
+
+            document.getElementById('resumenDuracion').textContent = calcularDuracionTexto(horasSeleccionadas.length);
+            document.getElementById('resumenNombre').textContent = nombre || '—';
+
+            if (canchaSeleccionada && horasSeleccionadas.length > 0) {
+                const total = canchaSeleccionada.precio * horasSeleccionadas.length;
+                document.getElementById('resumenPrecio').textContent = '$ ' + total.toLocaleString('es-CO');
+            } else {
+                document.getElementById('resumenPrecio').textContent = '$ 0';
+            }
+        }
+
+        function calcularDuracionTexto(n) {
+            if (n === 0) return '—';
+            if (n === 1) return '1 Hora';
+            return `${n} Horas`;
+        }
+
+        function formatearFecha(f) {
+            const [y, m, d] = f.split('-');
+            return `${d} / ${m} / ${y}`;
+        }
+
+        // ── CONFIRMAR — guarda en BD y va a pago ──────────────────
+        function confirmarReserva() {
+            const nombre = document.getElementById('nombre').value.trim();
+            const correo = document.getElementById('correo').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const fecha = document.getElementById('fechaSeleccionada').value;
+
+            if (!canchaSeleccionada) { alert('Selecciona una cancha.'); return; }
+            if (!fecha) { alert('Selecciona una fecha.'); return; }
+            if (horasSeleccionadas.length === 0) { alert('Selecciona al menos una hora.'); return; }
+            if (!nombre) { alert('Ingresa tu nombre.'); return; }
+            if (!correo) { alert('Ingresa tu correo.'); return; }
+
+            const btn = document.getElementById('btnConfirmarReserva');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Registrando reserva...';
+
+            const horasOrdenadas = [...horasSeleccionadas].sort();
+
+            fetch("{% url 'crear_reserva' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCSRF(),
+                },
+                body: JSON.stringify({
+                    nombre, correo, telefono, fecha,
+                    hora: horasOrdenadas[0],   // compatibilidad con el backend actual (una sola hora)
+                    horas: horasOrdenadas,     // arreglo completo por si el backend se actualiza para guardar varias
+                    cancha: canchaSeleccionada.nombre,
+                    duracion: calcularDuracionTexto(horasSeleccionadas.length),
+                })
             })
-        })
-        .then(r => r.json())
-        .then(data => {
-            if (data.status === 'ok') location.reload();
-            else alert(data.mensaje || 'Error al actualizar.');
+                .then(r => r.json())
+                .then(data => {
+                    if (data.status === 'ok') {
+                        window.location.href = "{% url 'pago' %}";
+                    } else {
+                        alert(data.mensaje || 'Error al registrar la reserva.');
+                        btn.disabled = false;
+                        btn.innerHTML = '<i class="bi bi-credit-card me-2"></i>Confirmar e Ir a Pagar';
+                    }
+                })
+                .catch(() => {
+                    alert('Error de conexión. Intenta de nuevo.');
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="bi bi-credit-card me-2"></i>Confirmar e Ir a Pagar';
+                });
+        }
+
+        // ── EDITAR ─────────────────────────────────────────────────
+
+        function poblarSelectCanchasEdit() {
+            const sel = document.getElementById('editCancha');
+            sel.innerHTML = CANCHAS.map(c =>
+                `<option value="${c.nombre}">${c.nombre} ($${c.precio.toLocaleString('es-CO')}/h)</option>`
+            ).join('');
+        }
+
+        function obtenerPrecioCancha(nombre) {
+            const c = CANCHAS.find(x => x.nombre === nombre);
+            return c ? c.precio : 0;
+        }
+
+        // Renderiza los horarios disponibles dentro del modal de edición,
+        // igual que en "Agenda tu encuentro", excluyendo la propia reserva
+        // que se está editando (para que sus horas actuales no se marquen
+        // como ocupadas).
+        function renderHorariosEdicion() {
+            const cont = document.getElementById('editContenedorHorarios');
+            const fecha = document.getElementById('editFecha').value;
+            const canchaNombre = document.getElementById('editCancha').value;
+
+            if (!fecha || !canchaNombre) {
+                cont.innerHTML = '<span class="text-muted small">Selecciona cancha y fecha.</span>';
+                return;
+            }
+
+            const ocupadas = getOcupadasParaEdicion(canchaNombre, fecha, editIdActual);
+
+            cont.innerHTML = HORAS.map(h => {
+                const estaOcupada = ocupadas.includes(h);
+                const seleccionada = editHorasSeleccionadas.includes(h);
+                let cls = 'hora-btn';
+                if (estaOcupada) cls += ' ocupada';
+                if (seleccionada && !estaOcupada) cls += ' seleccionada';
+                const titulo = estaOcupada ? 'Hora no disponible' : `Seleccionar ${h}`;
+                return `<button type="button" class="${cls}" ${estaOcupada ? 'disabled' : ''} title="${titulo}"
+                    onclick="toggleHoraEdicion('${h}')">${h}</button>`;
+            }).join('');
+
+            actualizarResumenPrecioEdicion();
+        }
+
+        function getOcupadasParaEdicion(canchaNombre, fecha, idExcluir) {
+            return RESERVAS_BD
+                .filter(r => r.cancha === canchaNombre && r.fecha === fecha && r.id !== idExcluir)
+                .map(r => r.hora.substring(0, 5));
+        }
+
+        function toggleHoraEdicion(h) {
+            const idx = editHorasSeleccionadas.indexOf(h);
+            if (idx === -1) {
+                editHorasSeleccionadas.push(h);
+            } else {
+                editHorasSeleccionadas.splice(idx, 1);
+            }
+            renderHorariosEdicion();
+        }
+
+        function onCambioCanchaEdit() {
+            editHorasSeleccionadas = [];
+            renderHorariosEdicion();
+        }
+
+        function onCambioFechaEdit() {
+            editHorasSeleccionadas = [];
+            renderHorariosEdicion();
+        }
+
+        // Calcula y muestra el precio original vs el nuevo, y el mensaje
+        // de pago adicional o reembolso según corresponda.
+        function actualizarResumenPrecioEdicion() {
+            const canchaNombre = document.getElementById('editCancha').value;
+            const precioHora = obtenerPrecioCancha(canchaNombre);
+            const nuevoTotal = precioHora * editHorasSeleccionadas.length;
+            const diferencia = nuevoTotal - editPrecioOriginalTotal;
+
+            let mensaje = 'Sin cambios en el valor de la reserva.';
+            let colorClass = 'text-muted';
+            let icono = 'bi-check-circle';
+
+            if (diferencia > 0) {
+                mensaje = `Al agregar horas, deberás realizar un pago adicional de $${diferencia.toLocaleString('es-CO')}.`;
+                colorClass = 'text-danger';
+                icono = 'bi-exclamation-triangle-fill';
+            } else if (diferencia < 0) {
+                mensaje = `Al quitar horas, se devolverá $${Math.abs(diferencia).toLocaleString('es-CO')} a tu cuenta registrada.`;
+                colorClass = 'text-success';
+                icono = 'bi-arrow-return-left';
+            }
+
+            document.getElementById('editContenedorPrecio').innerHTML = `
+                <div class="d-flex justify-content-between small mb-1">
+                    <span class="text-muted">Precio actual de la reserva:</span>
+                    <span class="fw-bold">$${editPrecioOriginalTotal.toLocaleString('es-CO')}</span>
+                </div>
+                <div class="d-flex justify-content-between small mb-2">
+                    <span class="text-muted">Nuevo precio (${editHorasSeleccionadas.length} h seleccionada${editHorasSeleccionadas.length === 1 ? '' : 's'}):</span>
+                    <span class="fw-bold">$${nuevoTotal.toLocaleString('es-CO')}</span>
+                </div>
+                <div class="${colorClass} small fw-semibold d-flex align-items-start gap-1">
+                    <i class="bi ${icono} mt-1"></i><span>${mensaje}</span>
+                </div>
+            `;
+        }
+
+        function abrirEdicion(id, nombre, correo, telefono, fecha, hora, cancha, duracion) {
+            editIdActual = parseInt(id);
+            document.getElementById('editId').value = id;
+            document.getElementById('editNombre').value = nombre;
+            document.getElementById('editCorreo').value = correo;
+            document.getElementById('editTelefono').value = telefono;
+
+            // Fecha: si existe la de la reserva la muestra, si no, hoy.
+            document.getElementById('editFecha').value =
+                (fecha && fecha !== "None") ? fecha.substring(0, 10) : new Date().toISOString().split('T')[0];
+
+            // Cancha
+            poblarSelectCanchasEdit();
+            document.getElementById('editCancha').value = cancha;
+
+            // Calcula cuántas horas ocupaba originalmente la reserva
+            // (según el texto de duración, ej. "2 Horas" -> 2) y con eso
+            // fija el precio original de referencia.
+            const match = (duracion || '').match(/\d+/);
+            const horasOriginalesCount = match ? parseInt(match[0]) : 1;
+            const precioHoraOriginal = obtenerPrecioCancha(cancha);
+            editPrecioOriginalTotal = precioHoraOriginal * horasOriginalesCount;
+
+            // Pre-selecciona la(s) hora(s) original(es) a partir de la
+            // hora base guardada, asumiendo bloque consecutivo.
+            const horaBase = (hora && hora !== "None") ? hora.substring(0, 5) : HORAS[0];
+            editHorasSeleccionadas = [horaBase];
+            const idxBase = HORAS.indexOf(horaBase);
+            for (let k = 1; k < horasOriginalesCount; k++) {
+                if (idxBase + k < HORAS.length) {
+                    editHorasSeleccionadas.push(HORAS[idxBase + k]);
+                }
+            }
+
+            renderHorariosEdicion();
+
+            new bootstrap.Modal(document.getElementById('modalEditarReserva')).show();
+        }
+
+        function guardarEdicion() {
+            const id = document.getElementById('editId').value;
+            const fecha = document.getElementById('editFecha').value;
+            const cancha = document.getElementById('editCancha').value;
+
+            if (!id || !fecha) { alert('Completa los campos requeridos.'); return; }
+            if (editHorasSeleccionadas.length === 0) { alert('Selecciona al menos una hora.'); return; }
+
+            const horasOrdenadas = [...editHorasSeleccionadas].sort();
+            const precioHora = obtenerPrecioCancha(cancha);
+            const nuevoTotal = precioHora * horasOrdenadas.length;
+            const diferencia = nuevoTotal - editPrecioOriginalTotal;
+
+            let confirmMsg = '¿Guardar los cambios de esta reserva?';
+            if (diferencia > 0) {
+                confirmMsg = `El nuevo total es $${nuevoTotal.toLocaleString('es-CO')} (antes $${editPrecioOriginalTotal.toLocaleString('es-CO')}).\n\nSe requiere un pago adicional de $${diferencia.toLocaleString('es-CO')}. ¿Deseas continuar?`;
+            } else if (diferencia < 0) {
+                confirmMsg = `El nuevo total es $${nuevoTotal.toLocaleString('es-CO')} (antes $${editPrecioOriginalTotal.toLocaleString('es-CO')}).\n\nSe devolverá $${Math.abs(diferencia).toLocaleString('es-CO')} a tu cuenta registrada. ¿Deseas continuar?`;
+            }
+            if (!confirm(confirmMsg)) return;
+
+            fetch(`/reservas/editar/${id}/`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCSRF() },
+                body: JSON.stringify({
+                    nombre: document.getElementById('editNombre').value,
+                    correo: document.getElementById('editCorreo').value,
+                    telefono: document.getElementById('editTelefono').value,
+                    fecha,
+                    hora: horasOrdenadas[0],       // compatibilidad con el backend actual (una sola hora)
+                    horas: horasOrdenadas,         // arreglo completo por si el backend se actualiza
+                    cancha,
+                    duracion: calcularDuracionTexto(horasOrdenadas.length),
+                    diferencia_pago: diferencia,   // > 0: cobrar, < 0: reembolsar, 0: sin cambio
+                })
+            })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.status === 'ok') {
+                        if (diferencia > 0) {
+                            // Si aumentó el valor, se redirige a pagar la diferencia.
+                            window.location.href = "{% url 'pago' %}";
+                        } else {
+                            location.reload();
+                        }
+                    } else {
+                        alert(data.mensaje || 'Error al actualizar.');
+                    }
+                });
+        }
+
+        // ── UTILS ──────────────────────────────────────────────────
+        function getCSRF() {
+            const c = document.cookie.split(';').find(c => c.trim().startsWith('csrftoken='));
+            return c ? decodeURIComponent(c.split('=')[1]) : '';
+        }
+
+        function mostrarModal(titulo, cuerpo) {
+            document.getElementById('modalNotiTitulo').textContent = titulo;
+            document.getElementById('modalNotiCuerpo').textContent = cuerpo;
+            new bootstrap.Modal(document.getElementById('modalNotificacion')).show();
+        }
+
+        // ── EVENTOS ────────────────────────────────────────────────
+        document.getElementById('fechaSeleccionada').addEventListener('change', () => {
+            horasSeleccionadas = [];
+            renderHorarios();
+            actualizarResumen();
         });
-    }
+        // Fecha mínima = hoy
+        document.getElementById('fechaSeleccionada').min = new Date().toISOString().split('T')[0];
 
-    // ── UTILS ──────────────────────────────────────────────────
-    function getCSRF() {
-        const c = document.cookie.split(';').find(c => c.trim().startsWith('csrftoken='));
-        return c ? decodeURIComponent(c.split('=')[1]) : '';
-    }
-
-    function mostrarModal(titulo, cuerpo) {
-        document.getElementById('modalNotiTitulo').textContent = titulo;
-        document.getElementById('modalNotiCuerpo').textContent = cuerpo;
-        new bootstrap.Modal(document.getElementById('modalNotificacion')).show();
-    }
-
-    // ── EVENTOS ────────────────────────────────────────────────
-    document.getElementById('fechaSeleccionada').addEventListener('change', () => {
-        horaSeleccionada = null;
-        renderHorarios();
-        actualizarResumen();
-    });
-    document.getElementById('duracion').addEventListener('change', actualizarResumen);
-
-    // Fecha mínima = hoy
-    document.getElementById('fechaSeleccionada').min = new Date().toISOString().split('T')[0];
-
-    // ── INICIO ─────────────────────────────────────────────────
-    renderCanchas();
+        // ── INICIO ─────────────────────────────────────────────────
+        renderCanchas();
     </script>
 </body>
+
 </html>

@@ -58,32 +58,32 @@
                         <div class="resumen-interior-box p-3 rounded-3 text-white">
                             <div class="row g-2">
                                 <div class="col-12 text-center mb-2">
-                                    <span class="badge text-bg-verde px-3 py-2 fs-6">Arena Norte Premium</span>
+                                    <span class="badge text-bg-verde px-3 py-2 fs-6">{{ reserva.cancha|default:"Sin reserva" }}</span>
                                 </div>
                                 <div class="col-sm-6">
                                     <p class="mb-1 small opacity-75">Nombre del Cliente:</p>
-                                    <p class="fw-bold mb-2">Danna Perez</p>
+                                    <p class="fw-bold mb-2">{{ reserva.nombre|default:"—" }}</p>
                                 </div>
                                 <div class="col-sm-6">
                                     <p class="mb-1 small opacity-75">Teléfono:</p>
-                                    <p class="fw-bold mb-2">315 123 4567</p>
+                                    <p class="fw-bold mb-2">{{ reserva.telefono|default:"—" }}</p>
                                 </div>
                                 <div class="col-sm-6">
                                     <p class="mb-1 small opacity-75">Fecha de Reserva:</p>
-                                    <p class="fw-bold mb-2">12 de Junio, 2026</p>
+                                    <p class="fw-bold mb-2">{{ reserva.fecha|date:"d/m/Y"|default:"--/--/----" }}</p>
                                 </div>
                                 <div class="col-sm-6">
                                     <p class="mb-1 small opacity-75">Hora y Duración:</p>
-                                    <p class="fw-bold mb-2">07:00 PM <span class="badge text-bg-dark opacity-75 small font-mono">60 min</span></p>
+                                    <p class="fw-bold mb-2">{{ reserva.hora|time:"h:i A"|default:"--:--" }} <span class="badge text-bg-dark opacity-75 small font-mono">{{ duracion_minutos|default:"60" }} min</span></p>
                                 </div>
                                 <div class="col-sm-6">
                                     <p class="mb-1 small opacity-75">Cantidad de Jugadores:</p>
-                                    <p class="fw-bold mb-0"><i class="bi bi-people-fill text-verde"></i> 7 vs 7</p>
+                                    <p class="fw-bold mb-0"><i class="bi bi-people-fill text-verde"></i> {{ jugadores|default:"—" }}</p>
                                 </div>
                                 <div class="col-sm-6 d-flex align-items-end justify-content-sm-end">
                                     <div class="text-sm-end mt-2 mt-sm-0">
                                         <span class="opacity-75 small">Total: </span>
-                                        <span class="text-verde fw-bold fs-4">$ 85.000</span>
+                                        <span class="text-verde fw-bold fs-4">$ {{ total|default:"0" }}</span>
                                     </div>
                                 </div>
                             </div>

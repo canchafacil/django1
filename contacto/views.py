@@ -54,8 +54,19 @@ def resena_editar(request, id):
     resena = get_object_or_404(Resena, id=id)
     try:
         data = json.loads(request.body)
-        resena.texto = data.get('texto', resena.texto)
+        resena.nombre    = data.get('nombre', resena.nombre).strip()
+        resena.jugador   = data.get('jugador', resena.jugador)
+        resena.cancha    = data.get('cancha', resena.cancha)
+        resena.estrellas = int(data.get('estrellas', resena.estrellas))
+        resena.texto     = data.get('texto', resena.texto).strip()
         resena.save()
-        return JsonResponse({'ok': True})
+        return JsonResponse({
+            'ok': True,
+            'nombre': resena.nombre,
+            'jugador': resena.jugador,
+            'cancha': resena.cancha,
+            'estrellas': resena.estrellas,
+            'texto': resena.texto,
+        })
     except Exception:
         return JsonResponse({'ok': False}, status=400)
