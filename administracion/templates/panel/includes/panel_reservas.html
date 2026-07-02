@@ -43,6 +43,9 @@
                                 </span>
                             </td>
                             <td>
+                                <!-- FIX: se llamaba a abrirEditarReserva(...) pero la función
+                                     definida se llamaba abrirEdicion(...). Ahora ambas coinciden
+                                     y se agrega el estado como parámetro extra para el admin. -->
                                 <button class="btn btn-warning btn-sm me-1"
                                     onclick="abrirEditarReserva({{ r.id }},'{{ r.nombre }}','{{ r.correo }}','{{ r.telefono }}','{{ r.fecha|date:"Y-m-d" }}','{{ r.hora }}','{{ r.cancha }}','{{ r.duracion }}','{{ r.estado }}')"
                                     title="Editar">✏</button>
@@ -65,53 +68,86 @@
         </div>
     </div>
 
-    <!-- Modal editar reserva -->
-    <div id="modal-reserva-editar-overlay" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:2000;justify-content:center;align-items:center;">
-        <div class="p-4 rounded-4" style="background:#191919;max-width:500px;width:90%;border:1px solid #2a2a2a;">
-            <h3 class="mb-3 fw-bold text-white" style="font-family:'Bebas Neue',sans-serif;font-size:2rem;">EDITAR RESERVA</h3>
-            <div class="row g-2">
-                <div class="col-12">
-                    <label class="text-white-50 small">Nombre</label>
-                    <input type="text" id="edit-res-nombre" class="form-control" style="background:#111;color:#fff;border:1px solid #333;">
+   <!-- Modal Editar -->
+    <div class="modal fade" id="modalEditarReserva" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Editar Reserva</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="col-md-6">
-                    <label class="text-white-50 small">Correo</label>
-                    <input type="email" id="edit-res-correo" class="form-control" style="background:#111;color:#fff;border:1px solid #333;">
+                <div class="modal-body">
+                    <input type="hidden" id="editId">
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-secondary">Nombre</label>
+                            <input class="form-control" id="editNombre" placeholder="Nombre">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-secondary">Teléfono</label>
+                            <input class="form-control" id="editTelefono" placeholder="Teléfono">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label small fw-bold text-secondary">Correo</label>
+                            <input class="form-control" id="editCorreo" placeholder="Correo">
+                        </div>
+
+                        <!-- NUEVO: campo exclusivo de administrador. El usuario final
+                             no tiene acceso a este panel ni puede cambiar el estado
+                             de su propia reserva; solo el admin ve y edita este selector. -->
+                        <div class="col-md-12">
+                            <label class="form-label small fw-bold text-secondary d-flex align-items-center gap-2">
+                                Estado
+                                <span class="badge bg-dark" style="font-size:0.65rem;">Solo administrador</span>
+                            </label>
+                            <select class="form-select" id="editEstado">
+                                <option value="Pendiente">Pendiente</option>
+                                <option value="Confirmada">Confirmada</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-secondary">Cancha</label>
+                            <select class="form-select" id="editCancha" onchange="onCambioCanchaEdit()"></select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-secondary">Fecha del partido</label>
+                            <input type="date" class="form-control" id="editFecha" onchange="onCambioFechaEdit()">
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label class="form-label small fw-bold text-secondary text-uppercase m-0">Horarios
+                                disponibles</label>
+                            <div class="d-flex gap-2 align-items-center" style="font-size:0.72rem;">
+                                <span class="leyenda-dot" style="background:#62ff00;border:2px solid #4fd400;"></span>
+                                Libre
+                                <span class="leyenda-dot ms-2"
+                                    style="background:#ffe5e5;border:2px solid #f5c2c2;"></span> Ocupada
+                            </div>
+                        </div>
+                        <div id="editContenedorHorarios"
+                            class="d-flex flex-wrap gap-2 p-3 rounded bg-light border"
+                            style="max-height:190px; overflow-y:auto;">
+                            <span class="text-muted small">Selecciona cancha y fecha.</span>
+                        </div>
+                        <span class="text-muted small d-block mt-2">Puedes seleccionar o quitar varias horas.</span>
+                    </div>
+
+                    <div class="rounded p-3 mt-3 border" style="background-color:#f4f6fb;" id="editContenedorPrecio">
+                        <!-- Se llena dinámicamente con JS -->
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <label class="text-white-50 small">Teléfono</label>
-                    <input type="text" id="edit-res-telefono" class="form-control" style="background:#111;color:#fff;border:1px solid #333;">
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-success" onclick="guardarEdicion()">Guardar cambios</button>
                 </div>
-                <div class="col-md-6">
-                    <label class="text-white-50 small">Fecha</label>
-                    <input type="date" id="edit-res-fecha" class="form-control" style="background:#111;color:#fff;border:1px solid #333;">
-                </div>
-                <div class="col-md-6">
-                    <label class="text-white-50 small">Hora</label>
-                    <input type="time" id="edit-res-hora" class="form-control" style="background:#111;color:#fff;border:1px solid #333;">
-                </div>
-                <div class="col-md-6">
-                    <label class="text-white-50 small">Cancha</label>
-                    <input type="text" id="edit-res-cancha" class="form-control" style="background:#111;color:#fff;border:1px solid #333;">
-                </div>
-                <div class="col-md-6">
-                    <label class="text-white-50 small">Duración</label>
-                    <select id="edit-res-duracion" class="form-select" style="background:#111;color:#fff;border:1px solid #333;">
-                        <option value="1 Hora">1 Hora</option>
-                        <option value="2 Horas">2 Horas</option>
-                    </select>
-                </div>
-                <div class="col-12">
-                    <label class="text-white-50 small">Estado</label>
-                    <select id="edit-res-estado" class="form-select" style="background:#111;color:#fff;border:1px solid #333;">
-                        <option value="Pendiente">Pendiente</option>
-                        <option value="Confirmada">Confirmada</option>
-                    </select>
-                </div>
-            </div>
-            <div class="d-flex justify-content-end gap-2 mt-3">
-                <button class="px-4 py-2 rounded-pill border-0 fw-bold" onclick="cerrarModalEditarReserva()" style="background:#2b2b2b;color:#fff;min-width:110px;">Cancelar</button>
-                <button class="px-4 py-2 rounded-pill border-0 fw-bold text-dark" id="btn-confirmar-editar-reserva" style="background:#62ff00;min-width:110px;">Guardar</button>
             </div>
         </div>
     </div>
@@ -142,8 +178,25 @@
 </div>
 
 <script>
+// NUEVO: estas 4 variables faltaban por completo en la página, por eso
+// la consola tiraba "Uncaught ReferenceError: CANCHAS is not defined"
+// y el modal de edición nunca llegaba a abrirse. Vienen desde el
+// contexto de la vista panel_principal (canchas_json / reservas_json).
+const CANCHAS = {{ canchas_json|safe }};
+const RESERVAS_BD = {{ reservas_json|safe }};
+const HORAS = ['06:00','07:00','08:00','09:00','10:00','11:00','12:00',
+               '13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00'];
+
+function calcularDuracionTexto(n) {
+    return n === 1 ? '1 Hora' : `${n} Horas`;
+}
+
 const CSRF_PANEL = '{{ csrf_token }}';
 let reservaSeleccionadaId = null;
+
+let editIdActual = null;
+let editHorasSeleccionadas = [];
+let editPrecioOriginalTotal = 0;
 
 function fetchPostPanel(url, body) {
     return fetch(url, {
@@ -153,51 +206,204 @@ function fetchPostPanel(url, body) {
     });
 }
 
-/* ── EDITAR ── */
+// ── EDITAR ─────────────────────────────────────────────────
+
+function poblarSelectCanchasEdit() {
+    const sel = document.getElementById('editCancha');
+    sel.innerHTML = CANCHAS.map(c =>
+        `<option value="${c.nombre}">${c.nombre} ($${c.precio.toLocaleString('es-CO')}/h)</option>`
+    ).join('');
+}
+
+function obtenerPrecioCancha(nombre) {
+    const c = CANCHAS.find(x => x.nombre === nombre);
+    return c ? c.precio : 0;
+}
+
+// Renderiza los horarios disponibles dentro del modal de edición,
+// igual que en "Agenda tu encuentro", excluyendo la propia reserva
+// que se está editando (para que sus horas actuales no se marquen
+// como ocupadas).
+function renderHorariosEdicion() {
+    const cont = document.getElementById('editContenedorHorarios');
+    const fecha = document.getElementById('editFecha').value;
+    const canchaNombre = document.getElementById('editCancha').value;
+
+    if (!fecha || !canchaNombre) {
+        cont.innerHTML = '<span class="text-muted small">Selecciona cancha y fecha.</span>';
+        return;
+    }
+
+    const ocupadas = getOcupadasParaEdicion(canchaNombre, fecha, editIdActual);
+
+    cont.innerHTML = HORAS.map(h => {
+        const estaOcupada = ocupadas.includes(h);
+        const seleccionada = editHorasSeleccionadas.includes(h);
+        let cls = 'hora-btn';
+        if (estaOcupada) cls += ' ocupada';
+        if (seleccionada && !estaOcupada) cls += ' seleccionada';
+        const titulo = estaOcupada ? 'Hora no disponible' : `Seleccionar ${h}`;
+        return `<button type="button" class="${cls}" ${estaOcupada ? 'disabled' : ''} title="${titulo}"
+            onclick="toggleHoraEdicion('${h}')">${h}</button>`;
+    }).join('');
+
+    actualizarResumenPrecioEdicion();
+}
+
+function getOcupadasParaEdicion(canchaNombre, fecha, idExcluir) {
+    return RESERVAS_BD
+        .filter(r => r.cancha === canchaNombre && r.fecha === fecha && r.id !== idExcluir)
+        .map(r => r.hora.substring(0, 5));
+}
+
+function toggleHoraEdicion(h) {
+    const idx = editHorasSeleccionadas.indexOf(h);
+    if (idx === -1) {
+        editHorasSeleccionadas.push(h);
+    } else {
+        editHorasSeleccionadas.splice(idx, 1);
+    }
+    renderHorariosEdicion();
+}
+
+function onCambioCanchaEdit() {
+    editHorasSeleccionadas = [];
+    renderHorariosEdicion();
+}
+
+function onCambioFechaEdit() {
+    editHorasSeleccionadas = [];
+    renderHorariosEdicion();
+}
+
+// Calcula y muestra el precio original vs el nuevo, y el mensaje
+// de pago adicional o reembolso según corresponda.
+function actualizarResumenPrecioEdicion() {
+    const canchaNombre = document.getElementById('editCancha').value;
+    const precioHora = obtenerPrecioCancha(canchaNombre);
+    const nuevoTotal = precioHora * editHorasSeleccionadas.length;
+    const diferencia = nuevoTotal - editPrecioOriginalTotal;
+
+    let mensaje = 'Sin cambios en el valor de la reserva.';
+    let colorClass = 'text-muted';
+    let icono = 'bi-check-circle';
+
+    if (diferencia > 0) {
+        mensaje = `Al agregar horas, el cliente deberá pagar $${diferencia.toLocaleString('es-CO')} adicionales.`;
+        colorClass = 'text-danger';
+        icono = 'bi-exclamation-triangle-fill';
+    } else if (diferencia < 0) {
+        mensaje = `Al quitar horas, se deberá gestionar el reembolso de $${Math.abs(diferencia).toLocaleString('es-CO')}.`;
+        colorClass = 'text-success';
+        icono = 'bi-arrow-return-left';
+    }
+
+    document.getElementById('editContenedorPrecio').innerHTML = `
+        <div class="d-flex justify-content-between small mb-1">
+            <span class="text-muted">Precio actual de la reserva:</span>
+            <span class="fw-bold">$${editPrecioOriginalTotal.toLocaleString('es-CO')}</span>
+        </div>
+        <div class="d-flex justify-content-between small mb-2">
+            <span class="text-muted">Nuevo precio (${editHorasSeleccionadas.length} h seleccionada${editHorasSeleccionadas.length === 1 ? '' : 's'}):</span>
+            <span class="fw-bold">$${nuevoTotal.toLocaleString('es-CO')}</span>
+        </div>
+        <div class="${colorClass} small fw-semibold d-flex align-items-start gap-1">
+            <i class="bi ${icono} mt-1"></i><span>${mensaje}</span>
+        </div>
+    `;
+}
+
+// FIX: renombrada de abrirEdicion(...) a abrirEditarReserva(...) para que
+// coincida con el onclick del botón, y se agrega el parámetro "estado"
+// para precargar el selector de estado (función exclusiva de admin).
 function abrirEditarReserva(id, nombre, correo, telefono, fecha, hora, cancha, duracion, estado) {
-    reservaSeleccionadaId = id;
-    document.getElementById('edit-res-nombre').value   = nombre;
-    document.getElementById('edit-res-correo').value   = correo;
-    document.getElementById('edit-res-telefono').value = telefono;
-    document.getElementById('edit-res-fecha').value    = fecha;
-    document.getElementById('edit-res-hora').value     = hora;
-    document.getElementById('edit-res-cancha').value   = cancha;
-    document.getElementById('edit-res-duracion').value = duracion;
-    document.getElementById('edit-res-estado').value   = estado;
-    document.getElementById('modal-reserva-editar-overlay').style.display = 'flex';
-}
-function cerrarModalEditarReserva() {
-    document.getElementById('modal-reserva-editar-overlay').style.display = 'none';
-    reservaSeleccionadaId = null;
-}
-document.getElementById('btn-confirmar-editar-reserva').onclick = function () {
-    const id = reservaSeleccionadaId;
-    const datos = {
-        nombre:   document.getElementById('edit-res-nombre').value.trim(),
-        correo:   document.getElementById('edit-res-correo').value.trim(),
-        telefono: document.getElementById('edit-res-telefono').value.trim(),
-        fecha:    document.getElementById('edit-res-fecha').value,
-        hora:     document.getElementById('edit-res-hora').value,
-        cancha:   document.getElementById('edit-res-cancha').value.trim(),
-        duracion: document.getElementById('edit-res-duracion').value,
-        estado:   document.getElementById('edit-res-estado').value,
-    };
-    cerrarModalEditarReserva();
-    fetchPostPanel(`/panel_admin/panel/reservas/${id}/editar/`, datos).then(r => {
-        if (!r.ok) return;
-        const fila = document.getElementById('fila-res-' + id);
-        if (fila) {
-            fila.cells[0].textContent = datos.nombre;
-            fila.cells[1].textContent = datos.cancha;
-            fila.cells[2].textContent = datos.fecha;
-            fila.cells[3].textContent = datos.hora;
-            fila.cells[4].textContent = datos.duracion;
-            const badge = fila.querySelector('.badge');
-            badge.textContent = datos.estado;
-            badge.className = 'badge ' + (datos.estado === 'Confirmada' ? 'bg-success' : 'bg-warning text-dark');
+    editIdActual = parseInt(id);
+    document.getElementById('editId').value = id;
+    document.getElementById('editNombre').value = nombre;
+    document.getElementById('editCorreo').value = correo;
+    document.getElementById('editTelefono').value = telefono;
+    document.getElementById('editEstado').value = estado || 'Pendiente';
+
+    // Fecha: si existe la de la reserva la muestra, si no, hoy.
+    document.getElementById('editFecha').value =
+        (fecha && fecha !== "None") ? fecha.substring(0, 10) : new Date().toISOString().split('T')[0];
+
+    // Cancha
+    poblarSelectCanchasEdit();
+    document.getElementById('editCancha').value = cancha;
+
+    // Calcula cuántas horas ocupaba originalmente la reserva
+    // (según el texto de duración, ej. "2 Horas" -> 2) y con eso
+    // fija el precio original de referencia.
+    const match = (duracion || '').match(/\d+/);
+    const horasOriginalesCount = match ? parseInt(match[0]) : 1;
+    const precioHoraOriginal = obtenerPrecioCancha(cancha);
+    editPrecioOriginalTotal = precioHoraOriginal * horasOriginalesCount;
+
+    // Pre-selecciona la(s) hora(s) original(es) a partir de la
+    // hora base guardada, asumiendo bloque consecutivo.
+    const horaBase = (hora && hora !== "None") ? hora.substring(0, 5) : HORAS[0];
+    editHorasSeleccionadas = [horaBase];
+    const idxBase = HORAS.indexOf(horaBase);
+    for (let k = 1; k < horasOriginalesCount; k++) {
+        if (idxBase + k < HORAS.length) {
+            editHorasSeleccionadas.push(HORAS[idxBase + k]);
         }
-    });
-};
+    }
+
+    renderHorariosEdicion();
+
+    new bootstrap.Modal(document.getElementById('modalEditarReserva')).show();
+}
+
+// FIX: usaba getCSRF() (no existe en este bloque) y llamaba al endpoint
+// de usuario final /reservas/editar/ que redirige a pago. Ahora usa
+// fetchPostPanel() con el token CSRF_PANEL ya definido arriba, apunta
+// al endpoint de administrador y envía también el estado (exclusivo admin).
+function guardarEdicion() {
+    const id = document.getElementById('editId').value;
+    const fecha = document.getElementById('editFecha').value;
+    const cancha = document.getElementById('editCancha').value;
+    const estado = document.getElementById('editEstado').value;
+
+    if (!id || !fecha) { alert('Completa los campos requeridos.'); return; }
+    if (editHorasSeleccionadas.length === 0) { alert('Selecciona al menos una hora.'); return; }
+
+    const horasOrdenadas = [...editHorasSeleccionadas].sort();
+    const precioHora = obtenerPrecioCancha(cancha);
+    const nuevoTotal = precioHora * horasOrdenadas.length;
+    const diferencia = nuevoTotal - editPrecioOriginalTotal;
+
+    let confirmMsg = '¿Guardar los cambios de esta reserva?';
+    if (diferencia > 0) {
+        confirmMsg = `El nuevo total es $${nuevoTotal.toLocaleString('es-CO')} (antes $${editPrecioOriginalTotal.toLocaleString('es-CO')}).\n\nComo administrador, este cambio quedará registrado sin cobrar al cliente de inmediato. ¿Continuar?`;
+    } else if (diferencia < 0) {
+        confirmMsg = `El nuevo total es $${nuevoTotal.toLocaleString('es-CO')} (antes $${editPrecioOriginalTotal.toLocaleString('es-CO')}).\n\nSe deberá gestionar un reembolso de $${Math.abs(diferencia).toLocaleString('es-CO')}. ¿Continuar?`;
+    }
+    if (!confirm(confirmMsg)) return;
+
+    fetchPostPanel(`/panel_admin/panel/reservas/${id}/editar/`, {
+        nombre: document.getElementById('editNombre').value,
+        correo: document.getElementById('editCorreo').value,
+        telefono: document.getElementById('editTelefono').value,
+        fecha,
+        hora: horasOrdenadas[0],       // compatibilidad con el backend actual (una sola hora)
+        horas: horasOrdenadas,         // arreglo completo por si el backend se actualiza
+        cancha,
+        duracion: calcularDuracionTexto(horasOrdenadas.length),
+        estado,                        // exclusivo de administrador
+        diferencia_pago: diferencia,   // > 0: cobrar, < 0: reembolsar, 0: sin cambio
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.status === 'ok') {
+            location.reload();
+        } else {
+            alert(data.mensaje || 'Error al actualizar.');
+        }
+    })
+    .catch(() => alert('Error de conexión al guardar los cambios.'));
+}
 
 /* ── ELIMINAR ── */
 function pedirEliminarReserva(id) {
