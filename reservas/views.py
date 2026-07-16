@@ -61,4 +61,4 @@ def pago(request):
             reserva = Reserva.objects.get(id=reserva_id)
         except Reserva.DoesNotExist:
             pass
-    return render(request, "paginas/pago.html", {"reserva": reserva})
+    return render(request, "pagos/pago.html", {"reserva": reserva})

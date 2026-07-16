@@ -132,3 +132,13 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+EMPRESA_NOMBRE = "CanchaFácil"
+EMPRESA_NIT = "900.123.456-7"
+EMPRESA_DIRECCION = "Calle Falsa 123, Bogotá"
+EMPRESA_TELEFONO = "+57 300 123 4567"
+EMPRESA_CORREO = "info@canchafacil.com"
+EMPRESA_LOGO = "img/logo-green.png"
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
