@@ -19,7 +19,7 @@ EMPRESA = {
     'direccion': getattr(settings, 'EMPRESA_DIRECCION', 'Calle Falsa 123, Bogotá'),
     'telefono': getattr(settings, 'EMPRESA_TELEFONO', '+57 300 123 4567'),
     'correo': getattr(settings, 'EMPRESA_CORREO', 'info@canchafacil.com'),
-    'logo': getattr(settings, 'EMPRESA_LOGO', 'img/logo-green.png'),  # Ruta relativa dentro de static
+    'logo': getattr(settings, 'EMPRESA_LOGO', 'img/logo-green.png'),
 }
 
 # ========== COLORES ==========
@@ -28,51 +28,60 @@ COLOR_VERDE_CLARO = colors.HexColor('#E8F5E9')
 COLOR_BLANCO = colors.white
 COLOR_NEGRO = colors.black
 
-# ========== PRECIO POR HORA ==========
-PRECIO_POR_HORA = Decimal('50000')
+# ========== DICCIONARIO DE PRECIOS POR CANCHA ==========
+# Los mismos precios que tienes en el JavaScript del frontend
+PRECIOS_CANCHAS = {
+    'Cancha Principal': Decimal('80000'),
+    'Cancha Auxiliar': Decimal('95000'),
+    'Cancha Sintética Norte': Decimal('80000'),
+    'Cancha Sur': Decimal('120000'),
+}
+# Precio por defecto si no se encuentra la cancha
+PRECIO_POR_DEFECTO = Decimal('50000')
 
-# ========== FUNCIÓN PARA ENCONTRAR EL LOGO ==========
+
 def encontrar_logo():
-    """
-    Busca el archivo del logo en varias ubicaciones.
-    Retorna la ruta absoluta si existe, o None si no.
-    """
-    # Obtener la ruta relativa del logo desde la configuración
-    logo_relativo = EMPRESA.get('logo', 'img/logo-green.png')
-    
-    # Lista de posibles ubicaciones donde buscar
-    posibles_ubicaciones = []
-    
-    # 1. STATIC_ROOT (si está definido)
+    """Busca el archivo del logo en varias ubicaciones posibles."""
+    logo_relativo = EMPRESA['logo']
+
+    # 1. Buscar en STATIC_ROOT
     if hasattr(settings, 'STATIC_ROOT') and settings.STATIC_ROOT:
-        posibles_ubicaciones.append(os.path.join(settings.STATIC_ROOT, logo_relativo))
-    
-    # 2. STATICFILES_DIRS (cada directorio)
-    if hasattr(settings, 'STATICFILES_DIRS'):
-        for static_dir in settings.STATICFILES_DIRS:
-            posibles_ubicaciones.append(os.path.join(static_dir, logo_relativo))
-    
-    # 3. BASE_DIR / 'static'
-    if hasattr(settings, 'BASE_DIR'):
-        posibles_ubicaciones.append(os.path.join(settings.BASE_DIR, 'static', logo_relativo))
-    
-    # 4. Dentro de la app 'pagos' (por si acaso)
-    app_dir = os.path.dirname(os.path.abspath(__file__))
-    posibles_ubicaciones.append(os.path.join(app_dir, 'static', logo_relativo))
-    
-    # 5. Ruta absoluta directa (por si se pasó la ruta completa)
-    posibles_ubicaciones.append(logo_relativo)
-    
-    # Recorrer todas las ubicaciones y devolver la primera que exista
-    for ruta in posibles_ubicaciones:
+        ruta = os.path.join(settings.STATIC_ROOT, logo_relativo)
         if os.path.exists(ruta):
             return ruta
-    
-    # No se encontró el logo
+
+    # 2. Buscar en STATICFILES_DIRS
+    if hasattr(settings, 'STATICFILES_DIRS'):
+        for static_dir in settings.STATICFILES_DIRS:
+            ruta = os.path.join(static_dir, logo_relativo)
+            if os.path.exists(ruta):
+                return ruta
+
+    # 3. Buscar en BASE_DIR / static
+    base_dir = getattr(settings, 'BASE_DIR', None)
+    if base_dir:
+        ruta = os.path.join(base_dir, 'static', logo_relativo)
+        if os.path.exists(ruta):
+            return ruta
+
+    # 4. Buscar en la carpeta 'static' de la app 'pagos'
+    app_dir = os.path.dirname(os.path.abspath(__file__))
+    ruta = os.path.join(app_dir, 'static', logo_relativo)
+    if os.path.exists(ruta):
+        return ruta
+
     return None
 
 
-# ========== FUNCIÓN PRINCIPAL PARA GENERAR EL PDF ==========
+def obtener_precio_cancha(nombre_cancha):
+    """
+    Obtiene el precio por hora de una cancha según su nombre.
+    Si no se encuentra, usa el precio por defecto.
+    """
+    precio = PRECIOS_CANCHAS.get(nombre_cancha, PRECIO_POR_DEFECTO)
+    return precio
+
+
 def generar_factura_pdf(reserva_id):
     """
     Genera un PDF de factura para la reserva con ID reserva_id.
@@ -94,20 +103,29 @@ def generar_factura_pdf(reserva_id):
     except Reserva.DoesNotExist:
         return None
 
-    # ========== CÁLCULOS ==========
+    # ========== CÁLCULOS CON PRECIO DINÁMICO ==========
+    # Obtener el precio por hora según el nombre de la cancha
+    precio_hora = obtener_precio_cancha(reserva.cancha)
+
+    # Calcular duración en horas
     duracion_texto = reserva.duracion.lower()
     if 'hora' in duracion_texto:
+        # Ej: "2 Horas" -> 2
         horas = Decimal(duracion_texto.split()[0])
     elif 'min' in duracion_texto:
+        # Ej: "60 min" -> 1
         minutos = Decimal(duracion_texto.split()[0])
         horas = minutos / 60
     else:
         horas = Decimal(1)
 
-    subtotal = PRECIO_POR_HORA * horas
-    iva = subtotal * Decimal('0.19')
+    # Calcular subtotal, IVA y total
+    subtotal = precio_hora * horas
+    iva_porcentaje = Decimal('0.19')  # 19%
+    iva = subtotal * iva_porcentaje
     total = subtotal + iva
 
+    # Número de factura
     anio = reserva.fecha.strftime('%Y')
     mes = reserva.fecha.strftime('%m')
     num_factura = f"FAC-{anio}-{mes}-{reserva.id:04d}"
@@ -162,15 +180,11 @@ def generar_factura_pdf(reserva_id):
     # ========== ELEMENTOS DEL PDF ==========
     elementos = []
 
-    # ----- ENCABEZADO: LOGO + DATOS DE LA EMPRESA -----
+    # ----- ENCABEZADO (logo + datos empresa) -----
     logo_path = encontrar_logo()
-    
-    if logo_path:
-        try:
-            logo = Image(logo_path, width=1.2 * inch, height=1.2 * inch)
-        except Exception as e:
-            # Si hay error al cargar la imagen, usamos texto
-            logo = Paragraph("CanchaFácil", estilo_titulo)
+
+    if logo_path and os.path.exists(logo_path):
+        logo = Image(logo_path, width=1.2 * inch, height=1.2 * inch)
     else:
         logo = Paragraph("CanchaFácil", estilo_titulo)
 
@@ -208,10 +222,10 @@ def generar_factura_pdf(reserva_id):
 
     # ----- DATOS DE LA FACTURA -----
     datos_factura = [
-        [Paragraph("<b>Número:</b>", estilo_negrita), Paragraph(num_factura, estilo_normal)],
-        [Paragraph("<b>Fecha emisión:</b>", estilo_negrita), Paragraph(datetime.now().strftime("%d/%m/%Y %H:%M"), estilo_normal)],
+        [Paragraph("<b>Número de factura:</b>", estilo_negrita), Paragraph(num_factura, estilo_normal)],
+        [Paragraph("<b>Fecha de emisión:</b>", estilo_negrita), Paragraph(datetime.now().strftime("%d/%m/%Y %H:%M"), estilo_normal)],
         [Paragraph("<b>Estado:</b>", estilo_negrita), Paragraph(reserva.estado, estilo_normal)],
-        [Paragraph("<b>Método pago:</b>", estilo_negrita), Paragraph("Tarjeta / PSE", estilo_normal)],
+        [Paragraph("<b>Método de pago:</b>", estilo_negrita), Paragraph("Tarjeta / PSE", estilo_normal)],
     ]
     tabla_datos = Table(datos_factura, colWidths=[1.5 * inch, 4 * inch])
     tabla_datos.setStyle(TableStyle([
@@ -261,7 +275,7 @@ def generar_factura_pdf(reserva_id):
             Paragraph(reserva.fecha.strftime("%d/%m/%Y"), estilo_celda_tabla),
             Paragraph(reserva.hora.strftime("%I:%M %p"), estilo_celda_tabla),
             Paragraph(f"{horas:.1f} h", estilo_celda_tabla),
-            Paragraph(f"${PRECIO_POR_HORA:,.0f}", estilo_celda_tabla),
+            Paragraph(f"${precio_hora:,.0f}", estilo_celda_tabla),
             Paragraph(f"${subtotal:,.0f}", estilo_celda_tabla),
         ]
     ]
